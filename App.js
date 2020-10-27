@@ -1,24 +1,19 @@
 import * as React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import test from './components/test'
+import { styles } from './styles/styles'
+
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.center}>
       <Text>Home Screen</Text>
       <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        title="Go to Test"
+        onPress={() => navigation.navigate('test')}
       />
-    </View>
-  );
-}
-
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
     </View>
   );
 }
@@ -28,29 +23,16 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}
+      >
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="test" component={test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    margin: 24,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 36,
-    marginBottom: 16
-  },
-  androidButtonText: {
-    color: 'blue',
-    fontSize: 20
-  }
-});
