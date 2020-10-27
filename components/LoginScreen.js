@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import { styles } from '../styles/styles';
 import test from './test';
+import Images from './Images';
 
 function LoginScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
@@ -68,15 +69,7 @@ function LoginScreen({ navigation }) {
             <View style={{ marginTop: 100 }}>
               <KeyboardAvoidingView enabled>
                 <View style={{ alignItems: 'center' }}>
-                  {/* <Image
-                    source={require('../assets/cup.PNG')}
-                    style={{
-                      width: 70,
-                      height: 80,
-                      resizeMode: 'contain',
-                      margin: 30,
-                    }}
-                  /> */}
+                <Images />
                 </View>
                 <View style={styles.SectionStyle}>
                   <TextInput
@@ -123,7 +116,7 @@ function LoginScreen({ navigation }) {
                 <Text
                   style={styles.registerTextStyle}
                   onPress={() => navigation.navigate('RegisterScreen')}>
-                  New Here ? Register
+                  New Here? Register
                 </Text>
               </KeyboardAvoidingView>
             </View>
