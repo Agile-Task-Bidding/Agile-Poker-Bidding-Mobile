@@ -11,7 +11,7 @@ function test({ navigation }) {
             </Text>
             <Button
                 title="Go Home"
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('SplashScreen')}
             />
         </View>
     );

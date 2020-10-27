@@ -28,15 +28,15 @@ export const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#307ecc',
+    backgroundColor: '#69b1ff',
   },
   SectionStyle: {
     flexDirection: 'row',
     height: 40,
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 35,
     marginRight: 35,
-    margin: 10,
+    margin: 8,
   },
   buttonStyle: {
     backgroundColor: '#7DE24E',
@@ -59,10 +59,10 @@ export const styles = StyleSheet.create({
   inputStyle: {
     flex: 1,
     color: 'white',
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderWidth: 1,
-    borderRadius: 30,
+    borderRadius: 10,
     borderColor: 'white',
   },
   registerTextStyle: {
