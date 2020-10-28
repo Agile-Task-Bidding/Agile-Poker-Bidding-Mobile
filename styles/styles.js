@@ -67,6 +67,7 @@ export const styles = StyleSheet.create({
     inputStyle: {
         flex: 1,
         color: 'black',
+        fontSize: 16,
         marginLeft: 40,
         marginRight: 40,
         borderBottomColor: baseColor,

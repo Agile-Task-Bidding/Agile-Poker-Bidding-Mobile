@@ -84,6 +84,7 @@ function LoginScreen({ navigation }) {
           <ScrollView keyboardShouldPersistTaps="handled">
             <View>
               <KeyboardAvoidingView enabled>
+                {/* Agile poker bidding title */}
                 {/* <View style={{ marginTop: 20, marginBottom: 20 }}>
                     <Text style={styles.loginTitle}>Agile Poker Bidding</Text>
                 </View> */}
@@ -144,7 +145,7 @@ function LoginScreen({ navigation }) {
                     <Text
                         style={styles.registerTextStyle}
                         onPress={() => navigation.navigate('RegisterScreen')}>
-                        New here? Register
+                        New Here? Register
                     </Text>
                 </View>
               </KeyboardAvoidingView>
