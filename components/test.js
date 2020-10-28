@@ -7,7 +7,7 @@ function test({ navigation }) {
     return(
         <View style={styles.center}>
             <Text>
-                Hello
+                Hello3
             </Text>
             <Button
                 title="Go Home"
