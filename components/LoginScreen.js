@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import { styles } from '../styles/styles';
 import test from './test';
-import Images from './Images';
+import CoffeeCup from './Images';
 
 function LoginScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
@@ -26,11 +26,11 @@ function LoginScreen({ navigation }) {
     const handleSubmitPress = () => {
         setErrortext('');
         if (!userEmail) {
-            alert('Please fill Email');
+            alert('Please fill in Email');
             return;
         }
         if (!userPassword) {
-            alert('Please fill Password');
+            alert('Please fill in Password');
             return;
         }
         setLoading(true);
@@ -65,44 +65,54 @@ function LoginScreen({ navigation }) {
 
     return (
         <View style={styles.mainBody}>
+        <View style={styles.duoBody}>
+            
+            <View style={{ alignItems: 'center', paddingTop: 30 }}>
+                <CoffeeCup />
+            </View>
+        </View>
+        <View style={styles.mainBody}>
           <ScrollView keyboardShouldPersistTaps="handled">
-            <View style={{ marginTop: 100 }}>
+            <View>
               <KeyboardAvoidingView enabled>
-                <View style={{ alignItems: 'center' }}>
-                <Images />
+                <View style={{ marginTop: 20, marginBottom: 20 }}>
+                    <Text style={styles.loginTitle}>Agile Poker Bidding</Text>
                 </View>
                 <View style={styles.SectionStyle}>
-                  <TextInput
-                    style={styles.inputStyle}
-                    onChangeText={UserEmail => setUserEmail(UserEmail)}
-                    placeholder="Enter Email" //dummy@abc.com
-                    placeholderTextColor="#F6F6F7"
-                    autoCapitalize="none"
-                    keyboardType="default"
-                    ref={ref => {
-                      this._emailinput = ref;
-                    }}
-                    returnKeyType="next"
-                    onSubmitEditing={() =>
-                      this._passwordinput && this._passwordinput.focus()
-                    }
-                    blurOnSubmit={false}
-                  />
+                    <Text style={styles.inputHeader}>Email</Text>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={UserEmail => setUserEmail(UserEmail)}
+                        placeholder="" 
+                        placeholderTextColor="#000"
+                        autoCapitalize="none"
+                        keyboardType="default"
+                        ref={ref => {
+                            this._emailinput = ref;
+                        }}
+                        returnKeyType="next"
+                        onSubmitEditing={() =>
+                            this._passwordinput && this._passwordinput.focus()
+                        }
+                        blurOnSubmit={false}
+                    />
                 </View>
                 <View style={styles.SectionStyle}>
-                  <TextInput
-                    style={styles.inputStyle}
-                    onChangeText={UserPassword => setUserPassword(UserPassword)}
-                    placeholder="Enter Password" //12345
-                    placeholderTextColor="#F6F6F7"
-                    autoCapitalize="none"
-                    keyboardType="default"
-                    ref={ref => {
-                      this._passwordinput = ref;
-                    }}
-                    onSubmitEditing={Keyboard.dismiss}
-                    blurOnSubmit={false}
-                  />
+                    <Text style={styles.inputHeader}>Password</Text>
+                    <TextInput
+                        style={styles.inputStyle}
+                        onChangeText={UserPassword => setUserPassword(UserPassword)}
+                        placeholder="" 
+                        placeholderTextColor="#000"
+                        autoCapitalize="none"
+                        keyboardType="default"
+                        secureTextEntry={true}
+                        ref={ref => {
+                            this._passwordinput = ref;
+                        }}
+                        onSubmitEditing={Keyboard.dismiss}
+                        blurOnSubmit={false}
+                    />
                 </View>
                 {errortext != '' ? (
                   <Text style={styles.errorTextStyle}> {errortext} </Text>
@@ -121,6 +131,7 @@ function LoginScreen({ navigation }) {
               </KeyboardAvoidingView>
             </View>
           </ScrollView>
+        </View>
         </View>
       );
 }

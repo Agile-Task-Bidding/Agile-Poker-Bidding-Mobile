@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Svg, { Path } from 'react-native-svg';
 
 import { styles } from '../styles/styles';
-import Images from './Images';
+import CoffeeCup from './Images';
 
 function SplashScreen({ navigation }) {
     let [animating, setAnimating] = useState(true);
@@ -22,7 +22,7 @@ function SplashScreen({ navigation }) {
 
       return (
         <View style={styles.container}>
-            <Images />
+            <CoffeeCup />
             <ActivityIndicator
                 animating={animating}
                 color="#FFFFFF"
