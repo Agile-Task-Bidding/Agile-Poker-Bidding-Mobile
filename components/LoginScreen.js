@@ -66,17 +66,16 @@ function LoginScreen({ navigation }) {
     return (
         <View style={styles.mainBody}>
         <View style={styles.duoBody}>
-            
-            <View style={{ alignItems: 'center', paddingTop: 30 }}>
-                <CoffeeCup />
-            </View>
         </View>
         <View style={styles.mainBody}>
           <ScrollView keyboardShouldPersistTaps="handled">
             <View>
               <KeyboardAvoidingView enabled>
-                <View style={{ marginTop: 20, marginBottom: 20 }}>
+                {/* <View style={{ marginTop: 20, marginBottom: 20 }}>
                     <Text style={styles.loginTitle}>Agile Poker Bidding</Text>
+                </View> */}
+                <View style={{ alignItems: 'center', paddingTop: 30 }}>
+                    <CoffeeCup />
                 </View>
                 <View style={styles.SectionStyle}>
                     <Text style={styles.inputHeader}>Email</Text>
@@ -118,16 +117,23 @@ function LoginScreen({ navigation }) {
                   <Text style={styles.errorTextStyle}> {errortext} </Text>
                 ) : null}
                 <TouchableOpacity
-                  style={styles.buttonStyle}
-                  activeOpacity={0.5}
-                  onPress={handleSubmitPress}>
-                  <Text style={styles.buttonTextStyle}>LOGIN</Text>
+                    style={styles.buttonStyle}
+                    activeOpacity={0.5}
+                    onPress={handleSubmitPress}>
+                    <Text style={styles.buttonTextStyle}>LOGIN</Text>
                 </TouchableOpacity>
-                <Text
-                  style={styles.registerTextStyle}
-                  onPress={() => navigation.navigate('RegisterScreen')}>
-                  New Here? Register
-                </Text>
+                <View style={styles.inlineText}>
+                    <Text
+                        style={styles.forgotPasswordTextStyle}
+                        onPress={() => navigation.navigate('RegisterScreen')}>
+                        Forgot Password?
+                    </Text>
+                    <Text
+                        style={styles.registerTextStyle}
+                        onPress={() => navigation.navigate('RegisterScreen')}>
+                        New here? Register
+                    </Text>
+                </View>
               </KeyboardAvoidingView>
             </View>
           </ScrollView>

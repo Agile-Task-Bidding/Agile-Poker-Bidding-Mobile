@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native'
 
+var baseColor = '#2B84ED';
+
 export const styles = StyleSheet.create({
     center: {
         flex: 1,
@@ -19,7 +21,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#69b1ff',
+        backgroundColor: baseColor,
     },
     activityIndicator: {
         alignItems: 'center',
@@ -31,9 +33,9 @@ export const styles = StyleSheet.create({
         backgroundColor: '#FFF',
     },
     duoBody: {
-        flex: .25,
+        flex: .1,
         justifyContent: 'center',
-        backgroundColor: '#69b1ff',
+        backgroundColor: baseColor,
         borderBottomColor: 'black',
         borderBottomWidth: .2,
     },
@@ -42,19 +44,18 @@ export const styles = StyleSheet.create({
         height: 70,
         marginTop: 18,
         marginBottom: 8,
-        borderBottomColor: "#69b1ff",
-        borderBottomWidth: 1,
+        
     },
     buttonStyle: {
-        backgroundColor: '#7DE24E',
+        backgroundColor: baseColor,
         borderWidth: 0,
         color: '#FFFFFF',
         borderColor: '#7DE24E',
         height: 40,
         alignItems: 'center',
-        borderRadius: 30,
-        marginLeft: 35,
-        marginRight: 35,
+        borderRadius: 0,
+        marginLeft: 40,
+        marginRight: 40,
         marginTop: 20,
         marginBottom: 20,
     },
@@ -66,16 +67,25 @@ export const styles = StyleSheet.create({
     inputStyle: {
         flex: 1,
         color: 'black',
-        paddingLeft: 40,
-        paddingRight: 10,
-        borderWidth: 0,
-        borderRadius: 0,
-        borderColor: 'white',
+        marginLeft: 40,
+        marginRight: 40,
+        borderBottomColor: baseColor,
+        borderBottomWidth: 1,
+    },
+    forgotPasswordTextStyle: {
+        flex: 1,
+        color: baseColor,
+        textAlign: 'left',
+        fontWeight: 'bold',
+        marginLeft: 40,
+        fontSize: 14,
     },
     registerTextStyle: {
-        color: '#69b1ff',
-        textAlign: 'center',
+        flex: 1,
+        color: baseColor,
+        textAlign: 'right',
         fontWeight: 'bold',
+        marginRight: 40,
         fontSize: 14,
     },
     errorTextStyle: {
@@ -85,7 +95,7 @@ export const styles = StyleSheet.create({
     },
     inputHeader: {
         paddingLeft: 40,
-        color: '#69b1ff',
+        color: baseColor,
         fontSize: 16,
     },
     loginTitle: { 
@@ -98,5 +108,9 @@ export const styles = StyleSheet.create({
         textShadowColor: 'black',
         textShadowOffset: {width: .5, height: .5},
         textShadowRadius: .001,
+    },
+    inlineText: {
+        flex: 1,
+        flexDirection: 'row',
     },
 });
