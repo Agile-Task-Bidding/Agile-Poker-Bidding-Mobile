@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Button,
     StyleSheet,
@@ -10,6 +10,7 @@ import {
     Keyboard,
     TouchableOpacity,
     KeyboardAvoidingView,
+    BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -22,6 +23,18 @@ function LoginScreen({ navigation }) {
     let [userPassword, setUserPassword] = useState('');
     let [loading, setLoading] = useState(false);
     let [errortext, setErrortext] = useState('');
+
+    //Handle back event... for some reason prevents all back events Idk why
+    // useEffect(() => {
+    //     const backAction = () => {
+    //         return true;
+    //     };
+    //     const backHandler = BackHandler.addEventListener(
+    //         "hardwareBackPress",
+    //         backAction
+    //     );
+    //     return () => backHandler.remove();
+    // }, []);
 
     const handleSubmitPress = () => {
         setErrortext('');

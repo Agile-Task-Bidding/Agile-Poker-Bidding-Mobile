@@ -28,7 +28,8 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
+        animationEnabled: false,
       }}
       >
         <Stack.Screen name="SplashScreen" component={SplashScreen} />
