@@ -64,7 +64,7 @@ function LoginScreen({ navigation }) {
             if(responseJson.status == 1) {  //or whatever use case we decide
                 AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
                 console.log(responseJson.data[0].user_id);
-                navigation.navigate(test);
+                navigation.navigate(HomeScreen);
             } else {
                 setErrortext('Please check your email or password');
                 console.log('Please check your email or password');
@@ -139,7 +139,7 @@ function LoginScreen({ navigation }) {
                 <View style={styles.inlineText}>
                     <Text
                         style={styles.forgotPasswordTextStyle}
-                        onPress={() => navigation.navigate('RegisterScreen')}>
+                        onPress={() => navigation.navigate('HomeScreen')}>
                         Forgot Password?
                     </Text>
                     <Text

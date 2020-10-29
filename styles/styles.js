@@ -32,6 +32,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FFF',
     },
+    homeBody: {
+        flex: 1,
+        backgroundColor: '#FFF',
+    },
     duoBody: {
         flex: .1,
         justifyContent: 'center',
@@ -110,8 +114,39 @@ export const styles = StyleSheet.create({
         textShadowOffset: {width: .5, height: .5},
         textShadowRadius: .001,
     },
+    userText : {
+        flex: 1,
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginLeft: 10,
+        textAlign: 'left',
+        color: baseColor,
+    },
     inlineText: {
         flex: 1,
         flexDirection: 'row',
+    },
+    inlineTextHome: {
+        flex: 1,
+        flexDirection: 'row-reverse',
+    },
+    logoutButtonStyle: {
+        backgroundColor: baseColor,
+        borderWidth: 0,
+        color: '#FFFFFF',
+        borderColor: '#7DE24E',
+        height: 30,
+        width: 70,
+        marginTop: 10,
+        marginRight: 10,
+    },
+    logoutButtonTextStyle: {
+        flex: 1,
+        color: '#FFFFFF',
+        paddingVertical: 5,
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
