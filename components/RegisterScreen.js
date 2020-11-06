@@ -14,6 +14,7 @@ import {
     BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
 import test from './test';
@@ -27,8 +28,42 @@ function LoginScreen({ navigation }) {
   let [errortext, setErrortext] = useState('');
   let [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
 
+  const firebaseLogin = () => {
+    auth()
+    .createUserWithEmailAndPassword(userEmail, userPassword)
+    .then(() => {
+      console.log('User account created & signed in!');
+    })
+    .catch(error => {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
+
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
+
+      console.error(error);
+    });
+  }
+
   const handleSubmitPress = () => {
+    setErrortext('');
+    if (!userEmail) {
+        alert('Please fill in Email');
+        return;
+    }
+    if (!userEmail) {
+      alert('Please fill in User Name');
+      return;
+    }
+    if (!userPassword) {
+        alert('Please fill in Password');
+        return;
+    }
+    firebaseLogin();
     Alert.alert('pressed', 'Button has been pressed username: ' + userName + ' email: ' + userEmail + ' password: ' + userPassword);
+
   }
 
   return (

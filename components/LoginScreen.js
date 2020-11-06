@@ -13,10 +13,12 @@ import {
     BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
 import test from './test';
 import CoffeeCup from './Images';
+import HomeScreen from './HomeScreen';
 
 function LoginScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
@@ -48,33 +50,33 @@ function LoginScreen({ navigation }) {
         }
         setLoading(true);
         //something like this API use case still not declared \/
-        var dataToSend = {user_email: userEmail, user_password: userPassword};
-
-        fetch('API_Address', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(dataToSend)
-        }).then(response => response.json())
-        .then(responseJson => {
-            setLoading(false);
-            console.log(responseJson);
-            if(responseJson.status == 1) {  //or whatever use case we decide
-                AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
-                console.log(responseJson.data[0].user_id);
-                navigation.navigate(HomeScreen);
-            } else {
-                setErrortext('Please check your email or password');
-                console.log('Please check your email or password');
-            }
+        auth()
+        .signInWithEmailAndPassword(userEmail, userPassword)
+        .then(() => {
+        console.log('User account signed in!');
         })
         .catch(error => {
-            setLoading(false);
-            console.error(error);
+        if (error.code === 'auth/invalid-email') {
+            console.log('That email is Invalid');
+        }
+
+        if (error.code === 'auth/user-not-found') {
+            console.log('User not found');
+        }
+
+        if (error.code === 'auth/wrong-password') {
+            console.log('Wrong Password');
+        }
+
+        console.error(error);
         });
     }
+
+    auth().onAuthStateChanged((user) => {
+        if (user) {
+            navigation.navigate("HomeScreen");
+        }
+    });
 
     return (
         <View style={styles.mainBody}>

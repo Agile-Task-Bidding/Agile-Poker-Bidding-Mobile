@@ -7,11 +7,31 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import auth from '@react-native-firebase/auth'
 
 import { styles } from '../styles/styles';
 import CoffeeCup from './Images';
 
 function HomeScreen({ navigation }) {
+    let [userEmail, setUserEmail] = useState('');
+
+    auth().onAuthStateChanged((user) => {
+        if (user) {
+            setUserEmail(user.email);
+        }
+    });
+
+    const userInfoTest = () => {
+        Alert.alert(userEmail);
+    }
+
+    const logOutUser = () => {
+    auth()
+        .signOut()
+        .then(() => console.log('User signed out!'))
+        .then(() => navigation.navigate("LoginScreen"));
+    }
+
     return (
         <View style={styles.mainBody} >
         <View style={styles.duoBody}>
@@ -21,7 +41,7 @@ function HomeScreen({ navigation }) {
                 <TouchableOpacity
                     style={styles.logoutButtonStyle}
                     activeOpacity={0.5}
-                    onPress={() => {Alert.alert('hello')}}>
+                    onPress={() => logOutUser()}>
                     <Text style={styles.logoutButtonTextStyle}>LOGOUT</Text>
                 </TouchableOpacity>
                 <Text style={styles.userText}>User</Text>
