@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View, StyleSheet, Image } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import Svg, { Path } from 'react-native-svg';
+import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
 import CoffeeCup from './Images';
@@ -12,13 +12,15 @@ function SplashScreen({ navigation }) {
     useEffect(() => {
         setTimeout(() => {
           setAnimating(false);
-          AsyncStorage.getItem('user_id').then(value =>
-            navigation.navigate(
-              value === null ? 'LoginScreen' : 'test'
-            )
-          );
-        }, 5000);
+          navigation.navigate("LoginScreen");
+        }, 1000);
       }, []);
+
+      auth().onAuthStateChanged((user) => {
+        if (user) {
+            navigation.navigate("HomeScreen");
+        }
+    });
 
       return (
         <View style={styles.container}>

@@ -5,8 +5,8 @@ import {
     Text,
     Alert,
     TouchableOpacity,
+    TextInput,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import auth from '@react-native-firebase/auth'
 
 import { styles } from '../styles/styles';
@@ -26,10 +26,10 @@ function HomeScreen({ navigation }) {
     }
 
     const logOutUser = () => {
-    auth()
-        .signOut()
-        .then(() => console.log('User signed out!'))
-        .then(() => navigation.navigate("LoginScreen"));
+        auth()
+            .signOut()
+            .then(() => console.log('User signed out!'))
+            .then(() => navigation.navigate("LoginScreen"));
     }
 
     return (
@@ -44,7 +44,7 @@ function HomeScreen({ navigation }) {
                     onPress={() => logOutUser()}>
                     <Text style={styles.logoutButtonTextStyle}>LOGOUT</Text>
                 </TouchableOpacity>
-                <Text style={styles.userText}>User</Text>
+                <Text style={styles.userText}>{userEmail}</Text>
             </View>
             <View style={{flex: 1, marginTop: 20, marginBottom: 10}}>
                 <CoffeeCup />
@@ -56,6 +56,15 @@ function HomeScreen({ navigation }) {
                     onPress={() => {Alert.alert('hello')}}>
                     <Text style={styles.buttonTextStyle}>HOST ROOM</Text>
                 </TouchableOpacity>
+                {/* Nickname text box? server name idk */}
+                {/* <TextInput
+                    style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
+                    // onChangeText={}
+                    placeholder="Name" 
+                    autoCapitalize="none"
+                    keyboardType="default"
+                    blurOnSubmit={false}
+                /> */}
                 <TouchableOpacity
                     style={styles.buttonStyle}
                     activeOpacity={0.5}
