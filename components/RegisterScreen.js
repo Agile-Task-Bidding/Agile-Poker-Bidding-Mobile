@@ -16,7 +16,6 @@ import {
 import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
-import test from './test';
 import CoffeeCup from './Images';
 
 function LoginScreen({ navigation }) {
