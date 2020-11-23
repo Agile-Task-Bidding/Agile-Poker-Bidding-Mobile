@@ -14,15 +14,28 @@ import CoffeeCup from './Images';
 
 function HomeScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
+    let [roomName, setRoomName] = useState('');
+    let [user, setUser] = useState('');
 
     auth().onAuthStateChanged((user) => {
         if (user) {
+            setUser(user);
             setUserEmail(user.email);
         }
     });
 
     const userInfoTest = () => {
         Alert.alert(userEmail);
+    }
+
+    const hostRoomPress = () => {
+        if(!user) {
+            navigation.navigate("LoginScreen");
+        }
+    }
+
+    const joinRoomPress = () => {
+        Alert.alert(roomName);
     }
 
     const logOutUser = () => {
@@ -53,22 +66,22 @@ function HomeScreen({ navigation }) {
                 <TouchableOpacity
                     style={styles.buttonStyle}
                     activeOpacity={0.5}
-                    onPress={() => {Alert.alert('hello')}}>
+                    onPress={() => hostRoomPress()}>
                     <Text style={styles.buttonTextStyle}>HOST ROOM</Text>
                 </TouchableOpacity>
                 {/* Nickname text box? server name idk */}
-                {/* <TextInput
-                    style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
-                    // onChangeText={}
+                <TextInput
+                    style={{borderColor: "black", borderWidth: 1, width: '79.5%', alignItems: 'center', alignSelf: 'center'}}
+                    onChangeText={roomName => setRoomName(roomName)}
                     placeholder="Name" 
                     autoCapitalize="none"
                     keyboardType="default"
                     blurOnSubmit={false}
-                /> */}
+                />
                 <TouchableOpacity
                     style={styles.buttonStyle}
                     activeOpacity={0.5}
-                    onPress={() => {Alert.alert('hello')}}>
+                    onPress={() => joinRoomPress()}>
                     <Text style={styles.buttonTextStyle}>JOIN ROOM</Text>
                 </TouchableOpacity>
             </View>
