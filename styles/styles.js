@@ -103,6 +103,13 @@ export const styles = StyleSheet.create({
         color: baseColor,
         fontSize: 16,
     },
+    inputHeaderInline: {
+        flex: 1,
+        textAlign: "left",
+        alignSelf: 'center',
+        color: 'red',
+        fontSize: 16,
+    },
     loginTitle: { 
         justifyContent: "center", 
         alignItems: "center", 

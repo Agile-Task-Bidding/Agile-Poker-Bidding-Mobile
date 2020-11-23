@@ -30,15 +30,15 @@ function LoginScreen({ navigation }) {
     auth()
     .createUserWithEmailAndPassword(userEmail, userPassword)
     .then(() => {
-      console.log('User account created & signed in!');
+      setErrortext('User account created & signed in!');
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
+        setErrortext('That email address is already in use!');
       }
 
       if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
+        setErrortext('That email address is invalid!');
       }
 
       console.error(error);
@@ -48,19 +48,18 @@ function LoginScreen({ navigation }) {
   const handleSubmitPress = () => {
     setErrortext('');
     if (!userEmail) {
-        alert('Please fill in Email');
+        setErrortext('Please fill in Email');
         return;
     }
     if (!userEmail) {
-      alert('Please fill in User Name');
+      setErrortext('Please fill in User Name');
       return;
     }
     if (!userPassword) {
-        alert('Please fill in Password');
+        setErrortext('Please fill in Password');
         return;
     }
     firebaseLogin();
-    Alert.alert('pressed', 'Button has been pressed username: ' + userName + ' email: ' + userEmail + ' password: ' + userPassword);
 
   }
 

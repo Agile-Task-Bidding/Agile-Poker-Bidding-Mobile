@@ -22,6 +22,8 @@ function LoginScreen({ navigation }) {
     let [userPassword, setUserPassword] = useState('');
     let [loading, setLoading] = useState(false);
     let [errortext, setErrortext] = useState('');
+    let [userError, setUserError] = useState('');
+    let [passError, setPassError] = useState('');
 
     //Handle back event... for some reason prevents all back events Idk why
     // useEffect(() => {
@@ -37,13 +39,19 @@ function LoginScreen({ navigation }) {
 
     const handleSubmitPress = () => {
         setErrortext('');
+        setUserError('');
+        setPassError('');
         if (!userEmail) {
-            alert('Please fill in Email');
+            setUserError('Please fill in Email');
             return;
+        } else {
+            setUserError('');
         }
         if (!userPassword) {
-            alert('Please fill in Password');
+            setPassError('Please fill in Password');
             return;
+        } else {
+            setPassError('');
         }
         setLoading(true);
         //something like this API use case still not declared \/
@@ -54,15 +62,15 @@ function LoginScreen({ navigation }) {
         })
         .catch(error => {
         if (error.code === 'auth/invalid-email') {
-            console.log('That email is Invalid');
+            setUserError('That email is Invalid');
         }
 
         if (error.code === 'auth/user-not-found') {
-            console.log('User not found');
+            setErrortext('User not found');
         }
 
         if (error.code === 'auth/wrong-password') {
-            console.log('Wrong Password');
+            setErrortext('User not found');
         }
 
         console.error(error);
@@ -109,6 +117,7 @@ function LoginScreen({ navigation }) {
                         blurOnSubmit={false}
                     />
                 </View>
+                    <Text style={styles.inputHeaderInline}>{userError}</Text>
                 <View style={styles.SectionStyle}>
                     <Text style={styles.inputHeader}>Password</Text>
                     <TextInput
@@ -126,6 +135,7 @@ function LoginScreen({ navigation }) {
                         blurOnSubmit={false}
                     />
                 </View>
+                    <Text style={styles.inputHeaderInline}>{passError}</Text>
                 {errortext != '' ? (
                   <Text style={styles.errorTextStyle}> {errortext} </Text>
                 ) : null}
