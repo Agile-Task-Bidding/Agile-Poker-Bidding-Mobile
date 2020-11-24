@@ -36,6 +36,12 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF',
     },
+    cardBody: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+    },
     duoBody: {
         flex: .1,
         justifyContent: 'center',
@@ -156,5 +162,13 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    cardView: {
+        margin: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ccc',
+        height: 200,
+        flexBasis: '40%',
     },
 });

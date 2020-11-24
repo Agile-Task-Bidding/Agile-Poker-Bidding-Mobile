@@ -10,7 +10,7 @@ import {
 import auth from '@react-native-firebase/auth'
 
 import { styles } from '../styles/styles';
-import CoffeeCup from './Images';
+import { CoffeeCup } from './Images';
 
 function HomeScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
@@ -35,7 +35,7 @@ function HomeScreen({ navigation }) {
     }
 
     const joinRoomPress = () => {
-        Alert.alert(roomName);
+        navigation.navigate("RoomScreen")
     }
 
     const logOutUser = () => {

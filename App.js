@@ -8,6 +8,7 @@ import SplashScreen from './components/SplashScreen'
 import LoginScreen from './components/LoginScreen'
 import RegisterScreen from './components/RegisterScreen'
 import HomeScreen from './components/HomeScreen'
+import RoomScreen from './components/RoomScreen'
 import { styles } from './styles/styles'
 
 // function HomeScreen({ navigation }) {
@@ -36,6 +37,7 @@ function App() {
         
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="RoomScreen" component={RoomScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="test" component={test} />

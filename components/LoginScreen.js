@@ -15,7 +15,7 @@ import {
 import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
-import CoffeeCup from './Images';
+import { CoffeeCup } from './Images';
 
 function LoginScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
