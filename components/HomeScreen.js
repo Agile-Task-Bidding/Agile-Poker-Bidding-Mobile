@@ -16,11 +16,17 @@ function HomeScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
     let [roomName, setRoomName] = useState('');
     let [user, setUser] = useState('');
+    let [logButtonText, setLogButtonText] = useState('');
 
     auth().onAuthStateChanged((user) => {
         if (user) {
             setUser(user);
             setUserEmail(user.email);
+            setLogButtonText("LOGOUT");
+        } else {
+            setLogButtonText("LOGIN");
+            setUserEmail('');
+            setUser(null);
         }
     });
 
@@ -31,18 +37,24 @@ function HomeScreen({ navigation }) {
     const hostRoomPress = () => {
         if(!user) {
             navigation.navigate("LoginScreen");
+        } else {
+            navigation.navigate("CreateCardScreen");
         }
     }
 
     const joinRoomPress = () => {
-        navigation.navigate("RoomScreen")
+        navigation.navigate("RoomScreen");
     }
 
     const logOutUser = () => {
-        auth()
-            .signOut()
-            .then(() => console.log('User signed out!'))
-            .then(() => navigation.navigate("LoginScreen"));
+        if(user) {
+            auth()
+                .signOut()
+                .then(() => console.log('User signed out!'));
+            
+        } else {
+            navigation.navigate("LoginScreen");
+        }
     }
 
     return (
@@ -55,7 +67,7 @@ function HomeScreen({ navigation }) {
                     style={styles.logoutButtonStyle}
                     activeOpacity={0.5}
                     onPress={() => logOutUser()}>
-                    <Text style={styles.logoutButtonTextStyle}>LOGOUT</Text>
+                    <Text style={styles.logoutButtonTextStyle}>{logButtonText}</Text>
                 </TouchableOpacity>
                 <Text style={styles.userText}>{userEmail}</Text>
             </View>

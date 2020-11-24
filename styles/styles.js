@@ -49,6 +49,12 @@ export const styles = StyleSheet.create({
         borderBottomColor: 'black',
         borderBottomWidth: .2,
     },
+    roomDuoBody: {
+        flex: .1,
+        backgroundColor: baseColor,
+        borderBottomColor: 'black',
+        borderBottomWidth: .2,
+    },
     SectionStyle: {
         flexDirection: 'column',
         height: 70,
@@ -164,11 +170,14 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
     },
     cardView: {
+        borderRadius: 10,
+        borderWidth: 5,
+        borderColor: baseColor,
         margin: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ccc',
-        height: 200,
-        flexBasis: '40%',
+        backgroundColor: '#ddd',
+        height: 250,
+        flexBasis: '44.9%',
     },
 });

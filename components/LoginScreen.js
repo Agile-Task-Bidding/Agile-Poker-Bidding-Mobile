@@ -95,9 +95,9 @@ function LoginScreen({ navigation }) {
                 {/* <View style={{ marginTop: 20, marginBottom: 20 }}>
                     <Text style={styles.loginTitle}>Agile Poker Bidding</Text>
                 </View> */}
-                <View style={{ alignItems: 'center', paddingTop: 30 }}>
+                <TouchableOpacity style={{ alignItems: 'center', paddingTop: 30 }} onPress={()=>{navigation.navigate("HomeScreen")}}>
                     <CoffeeCup />
-                </View>
+                </TouchableOpacity>
                 <View style={styles.SectionStyle}>
                     <Text style={styles.inputHeader}>Email</Text>
                     <TextInput
