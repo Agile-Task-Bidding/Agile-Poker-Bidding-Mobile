@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "1087362851222",
-    "firebase_url": "https://cop4331-test.firebaseio.com",
-    "project_id": "cop4331-test",
-    "storage_bucket": "cop4331-test.appspot.com"
+    "project_number": "135288113338",
+    "firebase_url": "https://agile-poker-bidding-71c12.firebaseio.com",
+    "project_id": "agile-poker-bidding-71c12",
+    "storage_bucket": "agile-poker-bidding-71c12.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1087362851222:android:40b73a5a845815a85e7db7",
+        "mobilesdk_app_id": "1:135288113338:android:47dd8082f9244d1785da83",
         "android_client_info": {
           "package_name": "com.apb"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1087362851222-mjgv6en8c02h0jj7vmhle339sb5vapf0.apps.googleusercontent.com",
+          "client_id": "135288113338-gpmgcchubl944dd77o7jiorvmog2ot0c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC5V05diebIEPTUh8PyAX2uW2sXkYoS5mU"
+          "current_key": "AIzaSyAMsAfN5rSftw_t2-Afpj3edyV4ILlLuy0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1087362851222-mjgv6en8c02h0jj7vmhle339sb5vapf0.apps.googleusercontent.com",
+              "client_id": "135288113338-gpmgcchubl944dd77o7jiorvmog2ot0c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
