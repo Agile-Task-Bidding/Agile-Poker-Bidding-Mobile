@@ -88,7 +88,7 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
                 {/* Nickname text box? server name idk */}
                 <TextInput
-                    style={{borderColor: "black", borderWidth: 1, width: '79.5%', alignItems: 'center', alignSelf: 'center'}}
+                    style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
                     onChangeText={roomName => setRoomName(roomName)}
                     placeholder="Name" 
                     autoCapitalize="none"
