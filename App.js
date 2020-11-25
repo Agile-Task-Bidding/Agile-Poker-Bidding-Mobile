@@ -11,6 +11,7 @@ import UsersScreen from './components/UsersScreen'
 import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
 import CreateCardScreen from './components/CreateCardScreen'
+import SocketTest from './components/socketTest'
 import { styles } from './styles/styles'
 
 // function HomeScreen({ navigation }) {
@@ -43,6 +44,7 @@ function App() {
         <Stack.Screen name="CreateCardScreen" component={CreateCardScreen} />
         <Stack.Screen name="UsersScreen" component={UsersScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="SocketTest" component={SocketTest} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="test" component={test} />
       </Stack.Navigator>

@@ -8,6 +8,8 @@ import {
     TextInput,
 } from 'react-native';
 import auth from '@react-native-firebase/auth'
+import io from 'socket.io-client'
+import config from '../config/config'
 
 import { styles } from '../styles/styles';
 import { CoffeeCup } from './Images';
@@ -17,6 +19,8 @@ function HomeScreen({ navigation }) {
     let [roomName, setRoomName] = useState('');
     let [user, setUser] = useState('');
     let [logButtonText, setLogButtonText] = useState('');
+
+    
 
     auth().onAuthStateChanged((user) => {
         if (user) {
@@ -35,11 +39,12 @@ function HomeScreen({ navigation }) {
     }
 
     const hostRoomPress = () => {
-        if(!user) {
-            navigation.navigate("LoginScreen");
-        } else {
-            navigation.navigate("CreateCardScreen");
-        }
+        navigation.navigate("SocketTest");
+        // if(!user) {
+        //     navigation.navigate("LoginScreen");
+        // } else {
+        //     navigation.navigate("CreateCardScreen");
+        // }
     }
 
     const joinRoomPress = () => {
