@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     TextInput,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
 import { CoffeeCupSmall, UserImage, BackArrow } from './Images';
