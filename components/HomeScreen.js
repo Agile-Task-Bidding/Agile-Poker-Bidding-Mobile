@@ -20,6 +20,8 @@ function HomeScreen({ navigation }) {
     let [user, setUser] = useState('');
     let [logButtonText, setLogButtonText] = useState('');
 
+
+
     auth().onAuthStateChanged((user) => {
         if (user) {
             setUser(user);
@@ -51,11 +53,11 @@ function HomeScreen({ navigation }) {
     }
 
     const logOutUser = () => {
-        if (user) {
+        if(user) {
             auth()
                 .signOut()
                 .then(() => console.log('User signed out!'));
-
+            
         } else {
             navigation.navigate("LoginScreen");
         }
