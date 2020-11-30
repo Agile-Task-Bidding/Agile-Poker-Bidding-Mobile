@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View, StyleSheet, Image } from 'react-native';
-import auth from '@react-native-firebase/auth';
 
 import { styles } from '../styles/styles';
 import CoffeeCup from './Images';

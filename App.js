@@ -3,7 +3,6 @@ import { Button, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import test from './components/test'
 import SplashScreen from './components/SplashScreen'
 import LoginScreen from './components/LoginScreen'
 import RegisterScreen from './components/RegisterScreen'
@@ -12,6 +11,7 @@ import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
 import CreateCardScreen from './components/CreateCardScreen'
 import SocketTest from './components/socketTest'
+import SocketDemoPage from './components/SocketDemoPage';
 import { styles } from './styles/styles'
 
 // function HomeScreen({ navigation }) {
@@ -46,7 +46,7 @@ function App() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SocketTest" component={SocketTest} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Stack.Screen name="test" component={test} />
+        <Stack.Screen name="SocketDemoPage" component={SocketDemoPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

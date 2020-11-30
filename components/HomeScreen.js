@@ -7,10 +7,8 @@ import {
     TouchableOpacity,
     TextInput,
 } from 'react-native';
-import auth from '@react-native-firebase/auth'
 import io from 'socket.io-client'
 import config from '../config/config'
-
 import { styles } from '../styles/styles';
 import { CoffeeCup } from './Images';
 
@@ -19,20 +17,6 @@ function HomeScreen({ navigation }) {
     let [roomName, setRoomName] = useState('');
     let [user, setUser] = useState('');
     let [logButtonText, setLogButtonText] = useState('');
-
-    
-
-    auth().onAuthStateChanged((user) => {
-        if (user) {
-            setUser(user);
-            setUserEmail(user.email);
-            setLogButtonText("LOGOUT");
-        } else {
-            setLogButtonText("LOGIN");
-            setUserEmail('');
-            setUser(null);
-        }
-    });
 
     const userInfoTest = () => {
         Alert.alert(userEmail);
@@ -48,18 +32,12 @@ function HomeScreen({ navigation }) {
     }
 
     const joinRoomPress = () => {
-        navigation.navigate("RoomScreen");
+        //navigation.navigate("RoomScreen");
+        navigation.navigate ('SocketDemoPage');
     }
 
     const logOutUser = () => {
-        if(user) {
-            auth()
-                .signOut()
-                .then(() => console.log('User signed out!'));
-            
-        } else {
-            navigation.navigate("LoginScreen");
-        }
+        navigation.navigate('LoginScreen');
     }
 
     return (
