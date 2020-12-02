@@ -48,8 +48,8 @@ function HomeScreen({ navigation }) {
     }
 
     const joinRoomPress = () => {
-        //navigation.navigate("RoomScreen");
-        navigation.navigate ('SocketDemoPage');
+        navigation.navigate("RoomScreen");
+        //navigation.navigate ('SocketDemoPage');
     }
 
     const logOutUser = () => {

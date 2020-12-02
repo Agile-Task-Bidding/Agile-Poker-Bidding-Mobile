@@ -2,6 +2,9 @@
 config/config.js
 config/firebaseConfig.js
 
+# XCode
+ios/*
+
 # OSX
 #
 .DS_Store

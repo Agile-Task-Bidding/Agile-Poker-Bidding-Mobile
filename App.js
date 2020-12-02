@@ -13,21 +13,24 @@ import CreateCardScreen from './components/CreateCardScreen'
 import SocketDemoPage from './components/SocketDemoPage';
 import { styles } from './styles/styles'
 
-// function HomeScreen({ navigation }) {
-//   return (
-//     <View style={styles.center}>
-//       <Text>Home Screen</Text>
-//       <Button
-//         title="Go to Test"
-//         onPress={() => navigation.navigate('test')}
-//       />
-//     </View>
-//   );
-// }
+import io from 'socket.io-client';
+import * as GLOBAL from './state/global';
+
+import { firebase } from '@react-native-firebase/auth';
+import { firebaseConfig } from './config/firebaseConfig';
+import config from './config/config'
+
+firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
 function App() {
+  // Initialize the roomServiceSocket if it isn't already initialized.
+  // This will initialize it throughout the entire app.
+  if (!GLOBAL.roomServiceSocket) {
+    GLOBAL.roomServiceSocket = io(config.SOCKET_URL, { path: config.ROOM_SERVICE_SOCKET });
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
