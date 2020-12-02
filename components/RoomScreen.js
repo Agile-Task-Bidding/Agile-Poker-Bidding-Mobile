@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import {
     Button,
     View,
@@ -8,112 +8,139 @@ import {
     TouchableOpacity,
     TextInput,
 } from 'react-native';
-import auth from '@react-native-firebase/auth'
-
 import { styles } from '../styles/styles';
-import { CoffeeCupSmall, UserImage, BackArrow } from './Images';
+import auth from '@react-native-firebase/auth';
 
-function RoomScreen({ navigation }) {
+import Constants from '../config/constants';
+import * as GLOBAL from '../state/global';
+import { CoffeeCupSmall, UserImage, BackArrow } from './Images';
+import PickingPhase from './Room-Components/PickingPhase';
+import ResultsPhase from './Room-Components/ResultsPhase';
+import UsersList from './Room-Components/UsersList';
+
+class RoomScreen extends Component {
     state = {
-        roomConfig: {
-            allowAbstain: true,
-            deck: [
-                {
-                    tag: 'Ok',
-                    value: 0,
-                },
-                {
-                    tag: 'Test',
-                    value: 1,
-                },
-                {
-                    tag: 'Nice',
-                    value: 2,
-                },
-                {
-                    tag: 'Nice',
-                    value: 3,
-                },
-                {
-                    tag: 'Super Long Test Tag Test',
-                    value: 4,
-                },
-                {
-                    tag: 'ddddddddddddddddddddddddddddddddddddddddd',
-                    value: 5,
-                },
-                {
-                    tag: 'Nice',
-                    value: 6,
-                },
-                {
-                    tag: '40 characters max ^',
-                    value: 7,
-                },
-                {
-                    tag: 'Nice',
-                    value: 8,
-                }
-            ]
-        },
+        usersListOpen: false,
+        roomState: null,
     };
 
-    const cardPressed = (Value) => {
-        // send to socket the value
-        Alert.alert(Value.toString());
+    componentDidMount() {
+        if (!GLOBAL.roomServiceSocket) {
+            // This is an error state as it should always be initialized. We may want to just boot
+            // the user back to the home screen with a popup alert.
+        } else {
+            // We can add events like so:
+            GLOBAL.roomServiceSocket.on('room_state_changed', event => this.onRoomStateChanged(event));
+        }
     }
 
-    const backButtonPressed = () => {
-        navigation.navigate("HomeScreen")
+    componentWillUnmount() {
+        // No error state is needed here -- we just need to make sure the
+        // socket exists before trying to unsubscribe to listeners.
+        if (GLOBAL.roomServiceSocket) {
+            // We can "unsubscribe" to events like so (should be done for every listener that was initialized):
+            GLOBAL.roomServiceSocket.on('room_state_changed', event => { return; });
+        }
+    }
+
+    // Handles setting the state if the client receives a room_state_changed event
+    onRoomStateChanged = (event) => {
+        this.setState({
+            roomState: event.roomState
+        });
+    }
+
+    backButtonPressed = () => {
+        console.log('OK');
+        navigation.navigate("HomeScreen");
     }
     
-    const userButtonPressed = () => {
-        navigation.navigate("UsersScreen")
+    // Opens the users list
+    userButtonPressed = () => {
+        this.setState({
+            usersListOpen: true,
+        });
     }
 
-    const GenerateCards = () => state.roomConfig.deck.map((e, index) => {
-        let Tag = e.tag;
-        let Value = e.value;
+    // Should be passed to the users list component so that it can be used to affect state on this wrapper
+    // component. Alternatively, if the button exists in the header (such as replacing the back button), you
+    // could just conditionally use this function in the renderHeader function.
+    closeUserList = () => {
+        this.setState({
+            usersListOpen: false,
+        });
+    }
 
-        var index = index + 1; 
-
+    renderHeader() {
+        // Code to render a header on each page should go here. It can utilize
+        // roomState.phase for any differences. You can have conditionals in the
+        // jsx, or you can declare variables before the return statement to use.
         return (
-        <TouchableOpacity key={index} style={styles.cardView} onPress={()=>cardPressed(Value)}>
-            <Text style={{flex: 1, fontSize: 24, marginTop: 15, marginLeft: 10, marginRight: 10, textAlign: 'center'}}>{Tag}</Text>
-            <Text style={{flex: 1, fontSize: 34}}>{Value}</Text>
-        </TouchableOpacity>
+            <View style={styles.roomDuoBody}>
+                <View style={{flexDirection: 'row'}}>  
+                    <View style={{flex: 1, paddingLeft: 10, paddingTop: 25}}>
+                        <TouchableOpacity onPress={() => this.backButtonPressed()}>
+                            <BackArrow />
+                        </TouchableOpacity>       
+                    </View>
+                    <View style={{flex: 1, marginBottom: 25}}>
+                        <CoffeeCupSmall />              
+                    </View>
+                    <View style={{flex: 1, alignItems: 'flex-end'}}>
+                        <TouchableOpacity style={{paddingTop: 25, paddingRight: 20}} onPress={()=>this.userButtonPressed()}>
+                            <UserImage />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
         );
-    });
+    }
 
-    return (
-        <View style={styles.mainBody} >
-        
-        <View style={styles.roomDuoBody}>
-            <View style={{flexDirection: 'row'}}>  
-                <View style={{flex: 1, paddingLeft: 10, paddingTop: 25}}>
-                    <TouchableOpacity onPress={() => backButtonPressed()}>
-                        <BackArrow />
-                    </TouchableOpacity>       
-                </View>
-                <View style={{flex: 1, marginBottom: 25}}>
-                    <CoffeeCupSmall />              
-                </View>
-                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <TouchableOpacity style={{paddingTop: 25, paddingRight: 20}} onPress={()=>userButtonPressed()}>
-                        <UserImage />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
-        <View style={{flex: 1}}>
-            <ScrollView>
-            <View style={styles.cardBody}>
-                <GenerateCards />
-            </View>
-            </ScrollView>
-        </View>
-        </View>
-    );
+    render() {
+        // Error state where roomState does not exist (may have to change later -- it may turn into a loading state)
+        if (!this.state.roomState || !this.state.roomState.phase) {
+            return (
+                <>
+                    {this.renderHeader()}
+                    <Text>roomState or roomState.phase DNE</Text>
+                </>
+            )
+        }
+        // Users List is open
+        else if (this.state.usersListOpen) {
+            return (
+                <>
+                    {this.renderHeader()}
+                    <UsersList
+                        roomState={this.state.roomState}
+                        closeUserList={this.closeUserList}
+                    />
+                </>
+            )
+        }
+        // Picking Phase is active
+        else if (this.state.roomState.phase === Constants.PICKING_PHASE) {
+            return (
+                <>
+                    {this.renderHeader()}
+                    <PickingPhase
+                        roomState={this.state.roomState}
+                    />
+                </>
+            );
+        }
+        // Results Phase is active
+        else if (this.state.roomState.phase === Constants.RESULTS_PHASE) {
+            return (
+                <>
+                    {this.renderHeader()}
+                    <ResultsPhase
+                        roomState={this.state.roomState}
+                    />
+                </>
+            );
+        }
+    }
 }
 
 export default RoomScreen;

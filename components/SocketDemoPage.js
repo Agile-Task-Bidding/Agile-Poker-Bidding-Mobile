@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { styles } from '../styles/styles';
-import config from '../config/config'
-import io from 'socket.io-client';
-import * as GLOBAL from '../state/global';
-import { firebase } from '@react-native-firebase/auth';
-import { firebaseConfig } from '../config/firebaseConfig';
-
-firebase.initializeApp(firebaseConfig);
 
 class socketTest extends Component {
     state = {
@@ -39,10 +32,6 @@ class socketTest extends Component {
     };
 
     componentDidMount() {
-        if (!GLOBAL.roomServiceSocket) {
-            GLOBAL.roomServiceSocket = io(config.SOCKET_URL, { path: config.ROOM_SERVICE_SOCKET });
-        }
-
         GLOBAL.roomServiceSocket.on('room_inactive', event => this.onRoomInactive(event));
         GLOBAL.roomServiceSocket.on('user_already_in_room', event => this.onUserAlreadyInRoom(event));
         GLOBAL.roomServiceSocket.on('room_state_changed', event => this.onRoomStateChanged(event));
