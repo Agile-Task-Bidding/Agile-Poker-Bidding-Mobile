@@ -20,7 +20,7 @@ function HomeScreen({ navigation }) {
     let [user, setUser] = useState('');
     let [logButtonText, setLogButtonText] = useState('');
 
-    
+
 
     auth().onAuthStateChanged((user) => {
         if (user) {
@@ -48,7 +48,8 @@ function HomeScreen({ navigation }) {
     }
 
     const joinRoomPress = () => {
-        navigation.navigate("RoomScreen");
+        //navigation.navigate("RoomScreen");
+        navigation.navigate ('SocketDemoPage');
     }
 
     const logOutUser = () => {
