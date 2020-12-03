@@ -28,6 +28,7 @@ class RoomScreen extends Component {
         if (!GLOBAL.roomServiceSocket) {
             // This is an error state as it should always be initialized. We may want to just boot
             // the user back to the home screen with a popup alert.
+            console.log("NO SOCKET ERROR STATE");
         } else {
             // We can add events like so:
             GLOBAL.roomServiceSocket.on('room_state_changed', event => this.onRoomStateChanged(event));
@@ -52,7 +53,7 @@ class RoomScreen extends Component {
 
     backButtonPressed = () => {
         console.log('OK');
-        navigation.navigate("HomeScreen");
+        this.props.navigation.navigate("HomeScreen");
     }
     
     // Opens the users list

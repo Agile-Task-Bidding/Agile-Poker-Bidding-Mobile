@@ -7,6 +7,7 @@ import SplashScreen from './components/SplashScreen'
 import LoginScreen from './components/LoginScreen'
 import RegisterScreen from './components/RegisterScreen'
 import UsersScreen from './components/UsersScreen'
+import RoomDoor from './components/RoomDoor'
 import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
 import CreateCardScreen from './components/CreateCardScreen'
@@ -20,7 +21,7 @@ import { firebase } from '@react-native-firebase/auth';
 import { firebaseConfig } from './config/firebaseConfig';
 import config from './config/config'
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ function App() {
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="RoomScreen" component={RoomScreen} />
+        <Stack.Screen name="RoomDoor" component={RoomDoor} />
         <Stack.Screen name="CreateCardScreen" component={CreateCardScreen} />
         <Stack.Screen name="UsersScreen" component={UsersScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />

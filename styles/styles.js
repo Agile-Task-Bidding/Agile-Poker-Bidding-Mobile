@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 var baseColor = '#2B84ED';
+var baseFontFamily = 'ReemKufi-Regular';
 
 export const styles = StyleSheet.create({
     center: {
@@ -169,6 +170,24 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    doorTextStyle: {
+        color: baseColor,
+        textAlign: 'center',
+        marginBottom: 20,
+        alignItems: 'center',
+        fontWeight: 'bold',
+        fontSize: 22,
+        fontFamily: baseFontFamily,
+    },
+    pileplanStyle: {
+        color: baseColor,
+        textAlign: 'center',
+        marginBottom: 60,
+        alignItems: 'center',
+        fontWeight: 'bold',
+        fontSize: 64,
+        fontFamily: baseFontFamily,
     },
     cardView: {
         borderRadius: 10,

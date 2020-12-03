@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { styles } from '../styles/styles';
 
+import * as GLOBAL from '../state/global';
+
 class socketTest extends Component {
     state = {
         joinRoomID: '',
