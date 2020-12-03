@@ -20,6 +20,7 @@ function HomeScreen({ navigation }) {
     let [roomName, setRoomName] = useState('');
     let [user, setUser] = useState('');
     let [logButtonText, setLogButtonText] = useState('');
+    let [errorText, setErrorText] = useState('');
 
     auth().onAuthStateChanged((user) => {
         if (user) {
@@ -49,6 +50,8 @@ function HomeScreen({ navigation }) {
         GLOBAL.roomName = roomName;
         if(roomName != "")
             navigation.navigate("RoomDoor");
+        else
+            setErrorText("Enter a room name");
         //navigation.navigate ('SocketDemoPage');
     }
 
@@ -77,7 +80,7 @@ function HomeScreen({ navigation }) {
                 </TouchableOpacity>
                 <Text style={styles.userText}>{userEmail}</Text>
             </View>
-            <View style={{flex: 1, marginTop: 20, marginBottom: 10}}>
+            <View style={{flex: 1, marginTop: 20, marginBottom: 30}}>
                 <CoffeeCup />
             </View>
             <View style={{flex:5}}>
@@ -88,6 +91,7 @@ function HomeScreen({ navigation }) {
                     <Text style={styles.buttonTextStyle}>HOST ROOM</Text>
                 </TouchableOpacity>
                 {/* Nickname text box? server name idk */}
+                <Text style={styles.errorTextStyle}>{errorText}</Text>
                 <TextInput
                     style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
                     onChangeText={roomName => setRoomName(roomName)}

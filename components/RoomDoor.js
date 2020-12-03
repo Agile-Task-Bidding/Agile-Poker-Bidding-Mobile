@@ -9,17 +9,28 @@ import * as GLOBAL from '../state/global';
 
 import { styles } from '../styles/styles';
 import { CoffeeCup } from './Images';
+import { BackArrow } from './Images';
 
 function roomDoor({ navigation }) {
     let [nickName, setNickName] = useState('');
+    let [errorText, setErrorText] = useState('');
 
     const joinRoomPress = () => {
-        navigation.navigate("SocketDemoPage");
+        navigation.navigate("RoomScreen");
+    }
+
+    const backButtonPressed = () => {
+        navigation.navigate("HomePage");
     }
 
     return (
         <View style={styles.mainBody} >
         <View style={styles.duoBody}>
+        <View style={{flex: 1, paddingLeft: 10, paddingTop: 25}}>
+            <TouchableOpacity onPress={() => backButtonPressed()}>
+                <BackArrow />
+            </TouchableOpacity>       
+        </View>
         </View>
         <View style={styles.homeBody}>
             <View style={{flex: 1, marginTop: 20}}>
@@ -33,6 +44,7 @@ function roomDoor({ navigation }) {
                     You are joining {GLOBAL.roomName}'s room! {"\n"}
                     Enter a nickname to join
                 </Text>
+                <Text style={styles.errorTextStyle}>{errorText}</Text>
                 <TextInput
                     style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
                     onChangeText={nickName => setNickName(nickName)}

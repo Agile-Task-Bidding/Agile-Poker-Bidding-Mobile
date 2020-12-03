@@ -200,4 +200,23 @@ export const styles = StyleSheet.create({
         height: 250,
         flexBasis: '44.9%',
     },
+    usersView: {
+        height: 60,
+        flexDirection: 'row',
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+    usersTextStyle: {
+        flex: 1,
+        fontSize: 28,
+        color: baseColor,
+        marginLeft: 10,
+        alignSelf: 'center',
+    },
+    kickButton: {
+        flex: 1,
+        alignItems: 'flex-end',
+        marginRight: 40,
+        alignSelf: 'center',
+    },
 });
