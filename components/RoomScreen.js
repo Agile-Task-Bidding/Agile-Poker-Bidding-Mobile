@@ -21,7 +21,7 @@ import UsersList from './Room-Components/UsersList';
 class RoomScreen extends Component {
     state = {
         usersListOpen: false,
-        roomState: null,
+        roomState: {"hostSocketID":"3dudDTtDNfa_4ooSAAAB","phase":"RESULTS_PHASE","voteByUserID":{"3dudDTtDNfa_4ooSAAAB":1,"jSDg2ki-eL9lA9NEAAAC":2,"WvJaSjDcLuxcLy2NAAAD":6,"fIYzU092AqYv1DOWAAAE":4},"connectedUsersByID":{"3dudDTtDNfa_4ooSAAAB":{"nickname":"FakeTanneryh","socketID":"3dudDTtDNfa_4ooSAAAB"},"jSDg2ki-eL9lA9NEAAAC":{"nickname":"Fa","socketID":"jSDg2ki-eL9lA9NEAAAC"},"WvJaSjDcLuxcLy2NAAAD":{"nickname":"Favncbv","socketID":"WvJaSjDcLuxcLy2NAAAD"},"fIYzU092AqYv1DOWAAAE":{"nickname":"Faghjfjjgfhj","socketID":"fIYzU092AqYv1DOWAAAE"}},"deck":[{"value":1,"tag":"ezz"},{"value":3,"tag":"hard"},{"value":8,"tag":"harderer"},{"value":100,"tag":"kill me"},{"value":999,"tag":"super hard"},{"value":-1,"tag":"done already"},{"tag":"Abstain","value":"ABSTAIN"}]},
     };
 
     componentDidMount() {

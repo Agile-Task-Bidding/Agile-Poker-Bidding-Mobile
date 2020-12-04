@@ -219,4 +219,5 @@ export const styles = StyleSheet.create({
         marginRight: 40,
         alignSelf: 'center',
     },
+    
 });

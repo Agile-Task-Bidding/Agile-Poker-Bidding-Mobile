@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import ResultsList from './ResultsList'
 
-class ResultsPhase extends Component {
-    state = {
+const ResultsPhase = ({ roomState }) => {
 
-    };
-
-    render() {
-        console.log(this.props.roomState);
-
-        return (
-            <Text>Results Phase</Text>
-        );
-    }
+    return (
+        <ResultsList
+            roomState={roomState}
+        />
+    )
 }
 
 export default ResultsPhase;
