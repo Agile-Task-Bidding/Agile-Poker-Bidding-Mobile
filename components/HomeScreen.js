@@ -42,7 +42,7 @@ function HomeScreen({ navigation }) {
         if(!user) {
             navigation.navigate("LoginScreen");
         } else {
-            navigation.navigate("CreateCardScreen");
+            navigation.navigate("CreateRoomScreen");
         }
     }
 

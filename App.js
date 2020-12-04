@@ -10,8 +10,9 @@ import UsersScreen from './components/UsersScreen'
 import RoomDoor from './components/RoomDoor'
 import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
-import CreateCardScreen from './components/CreateCardScreen'
 import SocketDemoPage from './components/SocketDemoPage';
+import CreateRoomScreen from './components/CreateRoom/CreateRoomScreen';
+
 import { styles } from './styles/styles'
 
 import io from 'socket.io-client';
@@ -42,10 +43,10 @@ function App() {
       >
         
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
+        <Stack.Screen name="CreateRoomScreen" component={CreateRoomScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="RoomScreen" component={RoomScreen} />
         <Stack.Screen name="RoomDoor" component={RoomDoor} />
-        <Stack.Screen name="CreateCardScreen" component={CreateCardScreen} />
         <Stack.Screen name="UsersScreen" component={UsersScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
