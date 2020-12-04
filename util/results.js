@@ -12,7 +12,7 @@ export const makeTally = (roomState) => {
     return voteTally;
 }
 
-export const calcNearestCard = (roomState) => {
+export const calcNearestCard = (roomState, average) => {
     let nearest = { value: 'ABSTAIN', tag: 'Abstain' };
     let nearestDistance = 1e9;
     for (const card of roomState.deck) {
@@ -30,8 +30,7 @@ export const calcAverage = (values) => {
     return values.reduce((a, b) => a + b, 0) / values.length;
 }
 
-export const calcStandardDeviation = (values) => {
-    const average = calcAverage(values);
+export const calcStandardDeviation = (values, average) => {
     const diffsSq = values.map((a) => (a - average) * (a - average), 0);
     const averageDiffSq = calcAverage(diffsSq);
     return Math.sqrt(averageDiffSq);
