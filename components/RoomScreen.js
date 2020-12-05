@@ -79,7 +79,7 @@ class RoomScreen extends Component {
         return (
             <View style={styles.roomDuoBody}>
                 <View style={{flexDirection: 'row'}}>  
-                    <View style={{flex: 1, paddingLeft: 10, paddingTop: 50}}>
+                    <View style={{flex: 1, paddingLeft: 10, paddingTop: 25}}>
                         <TouchableOpacity onPress={() => this.backButtonPressed()}>
                             <BackArrow />
                         </TouchableOpacity>       
