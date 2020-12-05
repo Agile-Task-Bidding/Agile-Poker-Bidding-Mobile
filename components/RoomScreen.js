@@ -13,47 +13,76 @@ import auth from '@react-native-firebase/auth';
 
 import Constants from '../config/constants';
 import * as GLOBAL from '../state/global';
-import { CoffeeCupSmall, UserImage, BackArrow } from './Images';
+import { CoffeeCupSmall, UserImage, BackArrow, LeaveRoom } from './Images';
 import PickingPhase from './Room-Components/PickingPhase';
 import ResultsPhase from './Room-Components/ResultsPhase';
 import UsersList from './Room-Components/UsersList';
+import constants from '../config/constants';
 
 class RoomScreen extends Component {
     state = {
         usersListOpen: false,
-        roomState: {"hostSocketID":"3dudDTtDNfa_4ooSAAAB","phase":"RESULTS_PHASE","voteByUserID":{"3dudDTtDNfa_4ooSAAAB":1,"jSDg2ki-eL9lA9NEAAAC":2,"WvJaSjDcLuxcLy2NAAAD":6,"fIYzU092AqYv1DOWAAAE":4},"connectedUsersByID":{"3dudDTtDNfa_4ooSAAAB":{"nickname":"FakeTanneryh","socketID":"3dudDTtDNfa_4ooSAAAB"},"jSDg2ki-eL9lA9NEAAAC":{"nickname":"Fa","socketID":"jSDg2ki-eL9lA9NEAAAC"},"WvJaSjDcLuxcLy2NAAAD":{"nickname":"Favncbv","socketID":"WvJaSjDcLuxcLy2NAAAD"},"fIYzU092AqYv1DOWAAAE":{"nickname":"Faghjfjjgfhj","socketID":"fIYzU092AqYv1DOWAAAE"}},"deck":[{"value":1,"tag":"ezz"},{"value":3,"tag":"hard"},{"value":8,"tag":"harderer"},{"value":100,"tag":"kill me"},{"value":999,"tag":"super hard"},{"value":-1,"tag":"done already"},{"tag":"Abstain","value":"ABSTAIN"}]},
+        roomState: null,
     };
 
     componentDidMount() {
-        if (!GLOBAL.roomServiceSocket) {
-            // This is an error state as it should always be initialized. We may want to just boot
-            // the user back to the home screen with a popup alert.
-            console.log("NO SOCKET ERROR STATE");
-        } else {
-            // We can add events like so:
-            GLOBAL.roomServiceSocket.on('room_state_changed', event => this.onRoomStateChanged(event));
-        }
+        this.props.navigation.addListener('focus', () => {
+            if (!GLOBAL.roomServiceSocket) {
+                console.log("NO SOCKET ERROR STATE");
+            } else {
+                // Add event listeners.
+                GLOBAL.roomServiceSocket.on('room_state_changed', this.onRoomStateChanged);
+                GLOBAL.roomServiceSocket.on('join_success', this.onJoinSuccess);
+                GLOBAL.roomServiceSocket.on('host_closed_connection', this.onHostClosedConnection);
+                // Fire off a join room request.
+                GLOBAL.roomServiceSocket.emit('join_room', { roomID: GLOBAL.roomName, nickname: GLOBAL.nickname });
+                GLOBAL.roomServiceSocket.emit('is_room_open', { roomID: GLOBAL.roomName });
+            }
+        });
+        this.props.navigation.addListener('blur', () => {
+            if (GLOBAL.roomServiceSocket) {
+                // We can "unsubscribe" to events like so (should be done for every listener that was initialized):
+                GLOBAL.roomServiceSocket.off('room_state_changed', this.onRoomStateChanged);
+                GLOBAL.roomServiceSocket.off('join_success', this.onJoinSuccess);
+                GLOBAL.roomServiceSocket.off('host_closed_connection', this.onHostClosedConnection);
+                // Fire off a leave room request.
+                GLOBAL.roomServiceSocket.emit('leave_room');
+                // Clear out some GLOBAL stuff
+                GLOBAL.isHost = false;
+                GLOBAL.selectedCardIndex = null;
+            }
+        });
     }
 
-    componentWillUnmount() {
-        // No error state is needed here -- we just need to make sure the
-        // socket exists before trying to unsubscribe to listeners.
-        if (GLOBAL.roomServiceSocket) {
-            // We can "unsubscribe" to events like so (should be done for every listener that was initialized):
-            GLOBAL.roomServiceSocket.on('room_state_changed', event => { return; });
-        }
+    onHostClosedConnection = (event) => {
+        // We want to navigate the user to a kicked screen.
+        this.props.navigation.navigate("KickedScreen");
+    }
+
+    onJoinSuccess = (event) => {
+        // If we want to add anything here, go ahead.
     }
 
     // Handles setting the state if the client receives a room_state_changed event
     onRoomStateChanged = (event) => {
+        // If the phase is transitioning, clear out the selectedCardIndex in preparation for next round
+        if (this.state.roomState && (this.state.roomState.phase !== event.roomState.phase)) {
+            GLOBAL.selectedCardIndex = null;
+        }
+        // Set the state appropriately
         this.setState({
             roomState: event.roomState
         });
     }
 
     backButtonPressed = () => {
-        console.log('OK');
-        this.props.navigation.navigate("HomeScreen");
+        if (this.state.usersListOpen) {
+            this.setState({
+                usersListOpen: false
+            });
+        } else {
+            this.props.navigation.navigate("HomeScreen");
+        }
     }
     
     // Opens the users list
@@ -81,7 +110,11 @@ class RoomScreen extends Component {
                 <View style={{flexDirection: 'row'}}>  
                     <View style={{flex: 1, paddingLeft: 10, paddingTop: 25}}>
                         <TouchableOpacity onPress={() => this.backButtonPressed()}>
-                            <BackArrow />
+                            {
+                                this.state.usersListOpen
+                                    ? <BackArrow />
+                                    : <LeaveRoom style={{ transform: "scale(2, 2)" }} />
+                            }
                         </TouchableOpacity>       
                     </View>
                     <View style={{flex: 1, marginBottom: 25}}>
@@ -103,7 +136,7 @@ class RoomScreen extends Component {
             return (
                 <>
                     {this.renderHeader()}
-                    <Text>roomState or roomState.phase DNE</Text>
+                    <Text>Please wait while we load your room!</Text>
                 </>
             )
         }
@@ -115,6 +148,7 @@ class RoomScreen extends Component {
                     <UsersList
                         roomState={this.state.roomState}
                         closeUserList={this.closeUserList}
+                        navigation={this.props.navigation}
                     />
                 </>
             )
@@ -126,6 +160,7 @@ class RoomScreen extends Component {
                     {this.renderHeader()}
                     <PickingPhase
                         roomState={this.state.roomState}
+                        navigation={this.props.navigation}
                     />
                 </>
             );

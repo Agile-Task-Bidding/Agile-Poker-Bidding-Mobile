@@ -21,7 +21,7 @@ import { firebase } from '@react-native-firebase/auth';
 import { firebaseConfig } from './config/firebaseConfig';
 import config from './config/config'
 
-// firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
@@ -42,8 +42,8 @@ function App() {
       >
         
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
-        <Stack.Screen name="RoomScreen" component={RoomScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="RoomScreen" component={RoomScreen} />
         <Stack.Screen name="RoomDoor" component={RoomDoor} />
         <Stack.Screen name="CreateCardScreen" component={CreateCardScreen} />
         <Stack.Screen name="UsersScreen" component={UsersScreen} />

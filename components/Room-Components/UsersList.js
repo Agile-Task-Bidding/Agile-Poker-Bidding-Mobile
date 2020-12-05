@@ -1,40 +1,23 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import * as GLOBAL from '../../state/global';
 
 import { styles } from '../../styles/styles';
 
 class UsersList extends Component {
-    state = {
-        isHost: true,
-        userList: [
-            "user1",
-            "user2",
-            "user3",
-            "user4",
-            "user5",
-            "user6",
-            "user7",
-            "user8",
-            "user9",
-            "user10",
-            "user11",
-            "user12",
-            "user13",
-        ]
-    };
 
-    kickUser = (User) => {
-        console.log("Kick" + User);
+    kickUser = (user) => {
+        GLOBAL.roomServiceSocket.emit('kick_user', { roomID: GLOBAL.roomName, user, authToken: GLOBAL.authToken });
     }
 
-    kickButtonPressed = (User) => {
+    kickButtonPressed = (user) => {
         Alert.alert(
             " ",
-            "Kick " + User + "?",
+            "Kick " + user.nickname + "?",
             [
                 {
                     text: "Yes",
-                    onPress: () => this.kickUser(User),
+                    onPress: () => this.kickUser(user),
                 },
                 {
                     text: "No",
@@ -44,10 +27,10 @@ class UsersList extends Component {
     }
 
     hostKickButton = (User) => {
-        if(this.state.isHost)
+        if(GLOBAL.isHost)
             return (
                 <TouchableOpacity style={styles.kickButton} onPress={() => this.kickButtonPressed(User)}>
-                    <Text>Click Me</Text>
+                    <Text>Kick</Text>
                 </TouchableOpacity>
             );
         else
@@ -57,20 +40,23 @@ class UsersList extends Component {
             );
     }
 
-    generateUsers = () => this.state.userList.map((e, index) => {
-        return (
-            <View style={styles.usersView} key={index}>
-                <Text style={styles.usersTextStyle}>
-                    {e}
-                </Text>
-                {this.hostKickButton(e)}
-            </View>
-        );
-    });
+    generateUsers = () => {
+        const userElements = [];
+        for (const [key, value] of Object.entries(this.props.roomState.connectedUsersByID)) {
+            console.log(userElements);
+            userElements.push(
+                <View style={styles.usersView} key={key}>
+                    <Text style={styles.usersTextStyle}>
+                        {value.nickname}
+                    </Text>
+                    {this.hostKickButton(value)}
+                </View>
+            );
+        }
+        return userElements;
+    }
 
     render() {
-        console.log(this.props.roomState);
-
         return (
             <View style={styles.mainBody}>
                 <ScrollView>
