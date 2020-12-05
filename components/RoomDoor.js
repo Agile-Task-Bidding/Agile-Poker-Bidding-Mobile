@@ -14,26 +14,28 @@ import { BackArrow } from './Images';
 
 class RoomDoor extends Component {
     state = {
-        nickname: '',
         errorText: '',
         roomStatus: constants.ROOM_STATUS_UNKNOWN,
     };
 
     componentDidMount() {
-        if (!GLOBAL.roomServiceSocket) {
-            console.log("NO SOCKET ERROR STATE");
-        } else {
-            // Set up event listeners
-            GLOBAL.roomServiceSocket.on('room_status_fetched', event => this.onRoomStatusFetched(event));
-            // Fire off an event to request for the room status
-            GLOBAL.roomServiceSocket.emit('is_room_open', { roomID: GLOBAL.roomName });
-        }
-    }
-
-    componentWillUnmount() {
-        if (GLOBAL.roomServiceSocket) {
-            GLOBAL.roomServiceSocket.on('room_status_fetched', event => { return; });
-        }
+        // Screen coming into view.
+        this.props.navigation.addListener('focus', () => {
+            if (!GLOBAL.roomServiceSocket) {
+                console.log("NO SOCKET ERROR STATE");
+            } else {
+                // Set up event listeners
+                GLOBAL.roomServiceSocket.on('room_status_fetched', event => this.onRoomStatusFetched(event));
+                // Fire off an event to request for the room status
+                GLOBAL.roomServiceSocket.emit('is_room_open', { roomID: GLOBAL.roomName });
+            }
+        });
+        // Screen leaving view.
+        this.props.navigation.addListener('blur', () => {
+            if (GLOBAL.roomServiceSocket) {
+                GLOBAL.roomServiceSocket.on('room_status_fetched', event => { return; });
+            }
+        });
     }
 
     joinRoomPress = () => {
@@ -85,7 +87,7 @@ class RoomDoor extends Component {
                 <Text style={styles.errorTextStyle}>{this.state.errorText}</Text>
                 <TextInput
                     style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
-                    onChangeText={nickname => this.setState({nickname})}
+                    onChangeText={nickname => GLOBAL.nickname = nickname}
                     placeholder="Name" 
                     autoCapitalize="none"
                     keyboardType="default"
