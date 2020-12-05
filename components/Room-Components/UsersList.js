@@ -10,14 +10,14 @@ class UsersList extends Component {
         GLOBAL.roomServiceSocket.emit('kick_user', { roomID: GLOBAL.roomName, user, authToken: GLOBAL.authToken });
     }
 
-    kickButtonPressed = (User) => {
+    kickButtonPressed = (user) => {
         Alert.alert(
             " ",
-            "Kick " + User.nickname + "?",
+            "Kick " + user.nickname + "?",
             [
                 {
                     text: "Yes",
-                    onPress: () => this.kickUser(User),
+                    onPress: () => this.kickUser(user),
                 },
                 {
                     text: "No",
