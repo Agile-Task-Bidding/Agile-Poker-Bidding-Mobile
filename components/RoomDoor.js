@@ -25,7 +25,7 @@ class RoomDoor extends Component {
                 console.log("NO SOCKET ERROR STATE");
             } else {
                 // Set up event listeners
-                GLOBAL.roomServiceSocket.on('room_status_fetched', event => this.onRoomStatusFetched(event));
+                GLOBAL.roomServiceSocket.on('room_status_fetched', this.onRoomStatusFetched);
                 // Fire off an event to request for the room status
                 GLOBAL.roomServiceSocket.emit('is_room_open', { roomID: GLOBAL.roomName });
             }
@@ -33,7 +33,7 @@ class RoomDoor extends Component {
         // Screen leaving view.
         this.props.navigation.addListener('blur', () => {
             if (GLOBAL.roomServiceSocket) {
-                GLOBAL.roomServiceSocket.on('room_status_fetched', event => { return; });
+                GLOBAL.roomServiceSocket.off('room_status_fetched', this.onRoomStatusFetched);
             }
         });
     }

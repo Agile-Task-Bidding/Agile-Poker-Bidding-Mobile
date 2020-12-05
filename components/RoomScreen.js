@@ -31,9 +31,9 @@ class RoomScreen extends Component {
                 console.log("NO SOCKET ERROR STATE");
             } else {
                 // Add event listeners.
-                GLOBAL.roomServiceSocket.on('room_state_changed', event => this.onRoomStateChanged(event));
-                GLOBAL.roomServiceSocket.on('join_success', event => this.onJoinSuccess(event));
-                GLOBAL.roomServiceSocket.on('host_closed_connection', event => this.onHostClosedConnection(event));
+                GLOBAL.roomServiceSocket.on('room_state_changed', this.onRoomStateChanged);
+                GLOBAL.roomServiceSocket.on('join_success', this.onJoinSuccess);
+                GLOBAL.roomServiceSocket.on('host_closed_connection', this.onHostClosedConnection);
                 // Fire off a join room request.
                 GLOBAL.roomServiceSocket.emit('join_room', { roomID: GLOBAL.roomName, nickname: GLOBAL.nickname });
                 GLOBAL.roomServiceSocket.emit('is_room_open', { roomID: GLOBAL.roomName });
@@ -42,9 +42,9 @@ class RoomScreen extends Component {
         this.props.navigation.addListener('blur', () => {
             if (GLOBAL.roomServiceSocket) {
                 // We can "unsubscribe" to events like so (should be done for every listener that was initialized):
-                GLOBAL.roomServiceSocket.on('room_state_changed', event => { return; });
-                GLOBAL.roomServiceSocket.on('join_success', event => { return; });
-                GLOBAL.roomServiceSocket.on('host_closed_connection', event => { return; });
+                GLOBAL.roomServiceSocket.off('room_state_changed', this.onRoomStateChanged);
+                GLOBAL.roomServiceSocket.off('join_success', this.onJoinSuccess);
+                GLOBAL.roomServiceSocket.off('host_closed_connection', this.onHostClosedConnection);
                 // Fire off a leave room request.
                 GLOBAL.roomServiceSocket.emit('leave_room');
                 // Clear out some GLOBAL stuff
