@@ -17,6 +17,7 @@ import { CoffeeCup } from './Images';
 
 function HomeScreen({ navigation }) {
     let [userEmail, setUserEmail] = useState('');
+    let [userName, setUserName] = useState('');
     let [roomName, setRoomName] = useState('');
     let [user, setUser] = useState('');
     let [logButtonText, setLogButtonText] = useState('');
@@ -26,6 +27,7 @@ function HomeScreen({ navigation }) {
         if (user) {
             setUser(user);
             setUserEmail(user.email);
+            setUserName(user.displayName)
             setLogButtonText("LOGOUT");
         } else {
             setLogButtonText("LOGIN");
@@ -68,8 +70,6 @@ function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.mainBody} >
-        <View style={styles.duoBody}>
-        </View>
         <View style={styles.homeBody}>
             <View style={styles.inlineTextHome}>
                 <TouchableOpacity
@@ -78,10 +78,14 @@ function HomeScreen({ navigation }) {
                     onPress={() => logOutUser()}>
                     <Text style={styles.logoutButtonTextStyle}>{logButtonText}</Text>
                 </TouchableOpacity>
-                <Text style={styles.userText}>{userEmail}</Text>
+                {/*THIS: need to figure out how we are saving user's info */}
+                <Text style={styles.userText}>{userName}</Text> 
             </View>
-            <View style={{flex: 1, marginTop: 20, marginBottom: 30}}>
+            <View style={{flex: 1, marginTop: 50}}>
                 <CoffeeCup />
+            </View>
+            <View style={{flex: 1, marginTop: 30, marginBottom: 30}}>
+                <Text style={styles.pileplanStyle}>PilePlan</Text>
             </View>
             <View style={{flex:5}}>
                 <TouchableOpacity
@@ -93,9 +97,9 @@ function HomeScreen({ navigation }) {
                 {/* Nickname text box? server name idk */}
                 <Text style={styles.errorTextStyle}>{errorText}</Text>
                 <TextInput
-                    style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
+                    style={{backgroundColor:"#DCDCDC", width: '80%', alignItems: 'center', left:40}}
                     onChangeText={roomName => setRoomName(roomName)}
-                    placeholder="Name" 
+                    placeholder="Room ID" 
                     autoCapitalize="none"
                     keyboardType="default"
                     blurOnSubmit={false}
