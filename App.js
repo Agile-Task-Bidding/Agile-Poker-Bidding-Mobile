@@ -12,6 +12,7 @@ import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
 import CreateCardScreen from './components/CreateCardScreen'
 import SocketDemoPage from './components/SocketDemoPage';
+import KickedScreen from './components/KickedScreen'
 import { styles } from './styles/styles'
 
 import io from 'socket.io-client';
@@ -50,6 +51,7 @@ function App() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="SocketDemoPage" component={SocketDemoPage} />
+        <Stack.Screen name="KickedScreen" component={KickedScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
