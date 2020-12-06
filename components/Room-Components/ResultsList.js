@@ -3,21 +3,40 @@ import { Text, View, FlatList } from 'react-native';
 import { styles } from '../../styles/styles';
 import { listMembersAndVotes } from '../../util/results';
 
+FlatListItemSeparator = () => {
+    return (
+        <View
+            style={{
+                height: 1,
+                width: "100%",
+                backgroundColor: "#333",
+            }}
+        />
+    );
+}
+
 const ResultsList = ({ roomState }) => {
 
     const renderItem = ({ item }) => {
         return (
-            <View key={item.socketID} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text>{item.nickname}</Text>
-                <Text>{item.vote}</Text>
-            </View>
+            <>
+                <View style={styles.resultsListItem}>
+                    <Text style={styles.nicknameText}>{item.nickname}</Text>
+                    <Text style={styles.voteText}>{item.vote}</Text>
+                </View>
+                <FlatListItemSeparator/>
+            </>
         );
     }
     return (
-        <FlatList
-            data={listMembersAndVotes(roomState)}
-            renderItem={renderItem}
-        />
+        <View>
+            <FlatListItemSeparator/>
+            <FlatList
+                data={listMembersAndVotes(roomState)}
+                renderItem={renderItem}
+                keyExtractor={(item) => {item.socketID}}
+            />
+        </View>
     )
 }
 

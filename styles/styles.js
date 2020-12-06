@@ -235,5 +235,34 @@ export const styles = StyleSheet.create({
         marginRight: 40,
         alignSelf: 'center',
     },
-    
+    resultsListItem: { 
+        display: 'flex', 
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+        padding: 24,
+    },
+    voteText: { 
+        fontSize: 24, 
+        color: '#1e5ca6', 
+        fontWeight: 'bold',
+    },
+    nicknameText: {
+        fontSize: 18, 
+    },
+    statisticLabelText: {
+        fontSize: 24,
+    },
+    statisticValueText: { 
+        fontSize: 24, 
+        color: '#1e5ca6', 
+        fontWeight: 'bold',
+    },
+    inlineTextView: {
+        padding: 12, 
+        marginBottom: 24, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+    }
 });
