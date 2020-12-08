@@ -12,7 +12,7 @@ import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
 import SocketDemoPage from './components/SocketDemoPage';
 import KickedScreen from './components/KickedScreen'
-import CreateRoomScreen from './components/CreateRoom/CreateRoomScreen';
+import CreateRoomScreen from './components/CreateRoom/Screen';
 
 import { styles } from './styles/styles'
 
@@ -44,8 +44,8 @@ function App() {
       >
         
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
-        <Stack.Screen name="CreateRoomScreen" component={CreateRoomScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="CreateRoomScreen" component={CreateRoomScreen} />
         <Stack.Screen name="RoomScreen" component={RoomScreen} />
         <Stack.Screen name="RoomDoor" component={RoomDoor} />
         <Stack.Screen name="UsersScreen" component={UsersScreen} />
