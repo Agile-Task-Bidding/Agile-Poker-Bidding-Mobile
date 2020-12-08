@@ -1,6 +1,7 @@
 export default {
 
-    SOCKET_URL: 'http://35.175.109.32:8000',
+    API_URL: 'https://apb.para.cx/api/v1',
+    SOCKET_URL: 'http://apb.para.cx:8000',
     ROOM_SERVICE_SOCKET: '/sockets/room-service',
 
 }

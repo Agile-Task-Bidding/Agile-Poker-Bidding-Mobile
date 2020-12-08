@@ -52,7 +52,7 @@ const CreateRoomCreateCardModal = ({ visible, modalIntent, onSubmit, setVisible,
               onChangeText={setTag}
               value={tag}
               placeholder='Hard'
-              maxLength={16}
+              maxLength={12}
               allowFontScaling={true}
               maxFontSizeMultiplier={0}
             />
