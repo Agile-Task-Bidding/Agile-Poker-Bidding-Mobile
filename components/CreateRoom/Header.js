@@ -2,10 +2,12 @@ import React from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const CreateRoomHeader = () => {
+const CreateRoomHeader = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Icon name='home' size={35} color='white'/>
+      <Pressable onPress={() => navigation.navigate('HomeScreen')}>
+        <Icon name='home' size={35} color='white'/>
+      </Pressable>
       <Pressable 
         style={styles.startRoomButton}
         android_ripple={{
