@@ -11,7 +11,7 @@ const CreateRoomCard = ({ value, tag, onPressDelete }) => {
             {value}
           </Text>
         </View>
-        <View>
+        <View style={styles.tagContainer}>
           <Text style={styles.tag}>
             {tag}
           </Text>
@@ -25,31 +25,42 @@ const CreateRoomCard = ({ value, tag, onPressDelete }) => {
   );
 };
 
+// This should probably be imported from somewhere.
+const baseFontFamily = 'ReemKufi-Regular';
+
 const styles = StyleSheet.create({
   container: {
     flexBasis: 160,
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    height: 210,
+    height: 220,
     backgroundColor: 'white',
     borderRadius: 20,
     elevation: 3,
     margin: 5
   },  
   properties: {
-    alignItems: 'center',
+    flexGrow: 1,
     padding: 10,
+    width: 'auto'
   },
   valueContainer: {
-    height: 90,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    flex: 1
   },
   value: {
-    fontWeight: 'bold',
+    fontFamily: baseFontFamily,
+    fontWeight: 'normal',
     fontSize: 80,
-    lineHeight: 95
+    textAlign: 'center',
+    lineHeight: 100
   },
+  tagContainer: {
+  },  
   tag: {
-    fontSize: 25
+    fontFamily: baseFontFamily,
+    fontSize: 25,
+    textAlign: 'center'
   },
 });
 
