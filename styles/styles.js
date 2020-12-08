@@ -214,13 +214,13 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgb(60, 120, 230)',
         height: 250,
-        flexBasis: '44.9%',
+        flexBasis: '44%',
     },
     usersView: {
         height: 60,
         flexDirection: 'row',
         borderColor: 'black',
-        borderWidth: 1,
+        borderBottomWidth: 1,
     },
     usersTextStyle: {
         flex: 1,
@@ -258,9 +258,9 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     inlineTextView: {
+        flex: .25,
         padding: 12, 
         marginBottom: 24, 
-        display: 'flex', 
         flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center',

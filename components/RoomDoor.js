@@ -86,7 +86,7 @@ class RoomDoor extends Component {
                 </Text>
                 <Text style={styles.errorTextStyle}>{this.state.errorText}</Text>
                 <TextInput
-                    style={{borderColor: "black", borderWidth: 1, width: '80%', alignItems: 'center', alignSelf: 'center'}}
+                    style={{backgroundColor:"#DCDCDC", width: '80%', alignItems: 'center', left:40}}
                     onChangeText={nickname => GLOBAL.nickname = nickname}
                     placeholder="Name" 
                     autoCapitalize="none"

@@ -10,24 +10,26 @@ const ResultsPhase = ({ roomState }) => {
     const average = calcAverage(tally);
 
     return (
-        <View>
+        <View style={{flex:1}}>
             <View style={styles.inlineTextView}>
-                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.statisticLabelText}>Nearest Card: </Text>
                     <Text style={styles.statisticValueText}>{calcNearestCard(roomState, average).value}</Text>
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.statisticLabelText}>Average: </Text>
                     <Text style={styles.statisticValueText}>{presentToThousandth(average)}</Text>
                 </View>
-                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.statisticLabelText}>Standard Deviation: </Text>
                     <Text style={styles.statisticValueText}>{presentToThousandth(calcStandardDeviation(tally, average))}</Text>
                 </View>
             </View>
-            <ResultsList
-                roomState={roomState}
-            />
+            <View style={{flex:1}}>
+                <ResultsList
+                    roomState={roomState}
+                />
+            </View>
         </View>
     )
 }

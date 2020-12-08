@@ -67,3 +67,6 @@ buck-out/
 
 # Config stuff
 google-services.json
+
+#final build
+/android/app/release
