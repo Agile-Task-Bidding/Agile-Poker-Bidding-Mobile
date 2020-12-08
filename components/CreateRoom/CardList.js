@@ -2,13 +2,14 @@ import React from 'react';
 import { Text, FlatList, StyleSheet } from 'react-native';
 import CreateRoomCard from './Card';
 
-const CreateRoomCardList = ({ deck, deleteCard }) => {
+const CreateRoomCardList = ({ deck, deleteCard, openEditModal }) => {
   const renderCard = ({item, index}) => (
     <CreateRoomCard 
       key={index} 
       value={item.value} 
       tag={item.tag}
-      onPressDelete={() => deleteCard(index)} 
+      onPressDelete={() => deleteCard(index)}
+      onPressEdit={() => openEditModal(index)} 
     />
   );
 

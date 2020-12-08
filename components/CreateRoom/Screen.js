@@ -37,29 +37,54 @@ const CreateRoomScreen = () => {
   const [allowAbstain, setAllowAbstain] = useState(defaultAllowAbstain);
 
   const [modalIsVisible, setModalIsVisible] = useState(false);
-  const [modalAction, setModalAction] = useState();
-  const [editTarget, setEditTarget] = useState(-1);
+  // Either 'create' or 'edit'
+  const [modalIntent, setModalIntent] = useState('create');
+  const [editTarget, setEditTarget] = useState();
 
   const addCard = (value, tag) => {
     const card = { value, tag };
     setDeck([...deck, card]);
-    console.log('set deck');
+  };
+
+  const openEditModal = (index) => {
+    setEditTarget(index);
+    setModalIntent('edit');
+    setModalIsVisible(true);
+  }
+
+  const onEdit = (index, value, tag) => {
+    const card = { value, tag };
+    const newDeck = [...deck];
+    newDeck[index] = card;
+    setDeck(newDeck);
+    // Reset the modal intent
+    setModalIntent('create');
   };
 
   const deleteCard = (index) => {
-    console.log(index);
+    const newDeck = [...deck];
+    newDeck.splice(index, 1);
+    setDeck(newDeck);
   }
 
   return (
     <>
       <CreateRoomHeader />
       <View style={styles.container}>
-        <CreateRoomCardList deck={deck} deleteCard={deleteCard} />
+        <CreateRoomCardList deck={deck} deleteCard={deleteCard} openEditModal={openEditModal} />
         <CreateRoomAddCardButton onPress={() => setModalIsVisible(true)} />
         <CreateRoomCreateCardModal
           visible={modalIsVisible}
-          addCard={addCard}
-          setVisible={setModalIsVisible} />
+          modalIntent={modalIntent}
+          onSubmit={
+            (modalIntent === 'edit') ?
+            (value, tag) => onEdit(editTarget, value, tag)
+            :
+            addCard
+          }
+          setVisible={setModalIsVisible}
+          initialValue={(modalIntent === 'edit') && deck[editTarget].value}
+          initialTag={(modalIntent === 'edit') && deck[editTarget].tag} />
       </View>
       <CreateRoomFooter
         onSave={() => console.log('saved')}
