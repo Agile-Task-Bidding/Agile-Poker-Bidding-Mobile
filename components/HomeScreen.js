@@ -32,6 +32,7 @@ function HomeScreen({ navigation }) {
         } else {
             setLogButtonText("LOGIN");
             setUserEmail('');
+            setUserName('');
             setUser(null);
         }
     });
