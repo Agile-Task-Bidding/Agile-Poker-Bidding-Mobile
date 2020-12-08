@@ -26,6 +26,7 @@ const CreateRoomFooter = ({ onSave, allowAbstain, setAllowAbstain }) => {
       </View>
 
       <Pressable
+        onPress={onSave}
         style={styles.saveConfigButton}
         android_ripple={{
           color: 'white',

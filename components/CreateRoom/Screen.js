@@ -1,45 +1,104 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button, Alert } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Alert, View, StyleSheet, Button } from 'react-native';
 import CreateRoomCardList from './CardList';
 import CreateRoomCreateCardModal from './CreateCardModal';
 import CreateRoomAddCardButton from './AddCardButton';
 import CreateRoomHeader from './Header';
-import { createStackNavigator } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import CreateRoomFooter from './Footer';
+import axios from 'axios';
+import config from '../../config/config';
+import { firebase } from '@react-native-firebase/auth';
+import global from '../../state/global';
 
-const defaultDeck = [
-  {
-    value: 1,
-    tag: 'Very Easy'
-  },
-  {
-    value: 3,
-    tag: 'Easy'
-  },
-  {
-    value: 5,
-    tag: 'Medium'
-  },
-  {
-    value: 999,
-    tag: 'Hard'
-  },
-  {
-    value: 13,
-    tag: 'Very Hard'
+
+const getRoomConfig = async () => {
+  const uid = firebase.auth().currentUser.uid;
+  const token = await firebase.auth().currentUser.getIdToken();
+  const path = `${config.API_URL}/users/${uid}/roomConfig`;
+
+  let response;
+  try {
+    response = await axios.get(path, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+  } catch (e) {
+    Alert.alert('Error', e.message);
+    console.error(e);
   }
-];
 
-const defaultAllowAbstain = true;
+  return response.data.roomConfig;
+}
+
+// Update the room config and assume it works because error checking is for squares
+const putRoomConfig = async (deck, allowAbstain) => {
+  const uid = firebase.auth().currentUser.uid;
+  const token = await firebase.auth().currentUser.getIdToken();
+  const path = `${config.API_URL}/users/${uid}/roomConfig`;
+  const roomConfig = { deck, allowAbstain };
+
+  let response;
+  try {
+    response = await axios.put(path, { roomConfig }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  } catch (e) {
+    console.error(e.response.data);
+  }
+}
+
+const startRoom = async (roomConfig) => {
+  const roomId = firebase.auth().currentUser.displayName;
+  const authToken = await firebase.auth().currentUser.getIdToken();
+  // global.roomServiceSocket.emit('create_room', {
+  //   roomId,
+  //   roomConfig,
+  //   authToken
+  // })
+  console.log('sending create_room to socket');
+}
 
 const CreateRoomScreen = ({ navigation }) => {
-  const [deck, setDeck] = useState(defaultDeck);
-  const [allowAbstain, setAllowAbstain] = useState(defaultAllowAbstain);
-
+  const [deck, setDeck] = useState();
+  const [allowAbstain, setAllowAbstain] = useState(false);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   // Either 'create' or 'edit'
   const [modalIntent, setModalIntent] = useState('create');
   const [editTarget, setEditTarget] = useState();
+
+  // Fetch the room config and set the initial deck and allow abstain state
+  useFocusEffect(
+    useCallback(() => {
+      const setInitialState = async () => {
+        const roomConfig = await getRoomConfig(firebase.auth().currentUser.uid);
+        setDeck(roomConfig.deck);
+        setAllowAbstain(roomConfig.allowAbstain);
+      }
+      setInitialState();
+    }, [])
+  );
+
+  const navigateToRoom = () => {
+    global.roomName = firebase.auth().currentUser.displayName;
+    navigation.navigate('RoomDoor');
+  }
+
+  // If we receieve a room_already_created or create_success event from the 
+  // room service we should navigate to the room page
+  useFocusEffect(
+    useCallback(() => {
+
+      // global.roomServiceSocket.on('room_already_created', navigateToRoom)
+      // global.roomServiceSocket.on('create_success', navigateToRoom)
+      console.log('navigating to room door');
+
+      return () => {
+        console.log('cleaning up listeners');
+        // global.roomServiceSocket.off('room_already_created', navigateToRoom);
+        // global.roomServiceSocket.off('create_success', navigateToRoom);
+      }
+    }, [])
+  );
 
   const addCard = (value, tag) => {
     const card = { value, tag };
@@ -67,9 +126,28 @@ const CreateRoomScreen = ({ navigation }) => {
     setDeck(newDeck);
   }
 
+  const onSave = () => {
+    putRoomConfig(deck, allowAbstain).then(() => {
+      Alert.alert('Success', 'Room config saved');
+    });
+  };
+
+  const onStart = () => {
+    console.log('putting room config');
+    putRoomConfig(deck, allowAbstain);
+    console.log('starting the room');
+    startRoom({ deck, allowAbstain });
+    console.log('room start sent');
+    // The room service should respond with a create_success event, 
+    // navigating us to our room door
+  };
+
   return (
     <>
-      <CreateRoomHeader navigation={navigation}/>
+      <CreateRoomHeader 
+        navigation={navigation} 
+        onStartPress={onStart}
+      />
       <View style={styles.container}>
         <CreateRoomCardList deck={deck} deleteCard={deleteCard} openEditModal={openEditModal} />
         <CreateRoomAddCardButton onPress={() => setModalIsVisible(true)} />
@@ -78,16 +156,16 @@ const CreateRoomScreen = ({ navigation }) => {
           modalIntent={modalIntent}
           onSubmit={
             (modalIntent === 'edit') ?
-            (value, tag) => onEdit(editTarget, value, tag)
-            :
-            addCard
+              (value, tag) => onEdit(editTarget, value, tag)
+              :
+              addCard
           }
           setVisible={setModalIsVisible}
           initialValue={(modalIntent === 'edit') && deck[editTarget].value}
           initialTag={(modalIntent === 'edit') && deck[editTarget].tag} />
       </View>
       <CreateRoomFooter
-        onSave={() => console.log('saved')}
+        onSave={onSave}
         allowAbstain={allowAbstain}
         setAllowAbstain={setAllowAbstain}
       />
