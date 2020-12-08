@@ -7,16 +7,27 @@ const CreateRoomCardOptions = ({ onPressEdit, onPressDelete }) => {
     <View style={styles.container}>
       <Pressable
         style={styles.editPressable}
-        onPress={onPressEdit}>
+        onPress={onPressEdit}
+        android_ripple={{
+          color: 'white',
+          borderless: false,
+          radius: 50
+        }}
+        >
         <Icon 
-          name='create' 
-          style='outlined'
+          name='create'
           size={30}
         />
       </Pressable>
       <Pressable
         style={styles.deletePressable}
-        onPress={onPressDelete}>
+        onPress={onPressDelete}
+        android_ripple={{
+          color: 'white',
+          borderless: false,
+          radius: 50
+        }}
+        >
         <Icon name='delete' size={30}/>
       </Pressable>
     </View>
@@ -28,19 +39,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     borderTopWidth: 1,
-    borderTopColor: 'lightgray'
+    borderTopColor: 'lightgray',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    overflow: 'hidden'
   },
   deletePressable: {
     flex: 1,
-    backgroundColor: 'red',
-    borderBottomRightRadius: 20,
+    backgroundColor: '#FF000060',
     justifyContent: 'center',
     alignItems: 'center'
   },
   editPressable: {
     flex: 1,
-    backgroundColor: 'green',
-    borderBottomLeftRadius: 20,
+    backgroundColor: '#00FF0060',
     justifyContent: 'center',
     alignItems: 'center'
   }

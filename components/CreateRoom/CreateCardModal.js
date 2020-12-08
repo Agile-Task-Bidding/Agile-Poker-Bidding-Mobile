@@ -34,7 +34,7 @@ const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
         <View style={styles.container}>
           <Text style={styles.title}>Create Card</Text>
           <View style={styles.form}>
-            <Text>Value</Text>
+            <Text style={{ fontFamily: baseFontFamily }}>Value</Text>
             <TextInput
               style={[styles.input, styles.valueInput]}
               onChangeText={setValue}
@@ -44,8 +44,8 @@ const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
               maxLength={3}
               allowFontScaling={true}
             />
-            <Text>Tag</Text>
-            <TextInput 
+            <Text style={{ fontFamily: baseFontFamily }}>Tag</Text>
+            <TextInput
               style={[styles.input, styles.tagInput]}
               onChangeText={setTag}
               value={tag}
@@ -56,12 +56,12 @@ const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
             />
           </View>
           <View style={styles.controls}>
-            <Button 
-              color='gray' 
+            <Button
+              color='gray'
               title='Cancel'
               onPress={onPressCancel}
             />
-            <Button 
+            <Button
               title='Create'
               onPress={onPressCreate}
             />
@@ -71,6 +71,8 @@ const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
     </Modal>
   );
 };
+
+const baseFontFamily = 'ReemKufi-Regular';
 
 const styles = StyleSheet.create({
   modal: {
@@ -109,19 +111,22 @@ const styles = StyleSheet.create({
     height: 80,
     width: 90,
     fontSize: 40,
+    fontFamily: baseFontFamily
   },
   tagInput: {
     height: 45,
     width: 200,
-    fontSize: 20
-  },  
+    fontSize: 20,
+    paddingBottom: 7,
+    fontFamily: baseFontFamily
+  },
   controls: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexGrow: 0,
   },
   title: {
-    fontWeight: 'bold',
+    fontFamily: baseFontFamily,
     fontSize: 20
   }
 })
