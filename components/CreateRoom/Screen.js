@@ -9,7 +9,7 @@ import CreateRoomFooter from './Footer';
 import axios from 'axios';
 import config from '../../config/config';
 import { firebase } from '@react-native-firebase/auth';
-import global from '../../state/global';
+import * as GLOBAL from '../../state/global';
 
 
 const getRoomConfig = async () => {
@@ -50,11 +50,11 @@ const putRoomConfig = async (deck, allowAbstain) => {
 const startRoom = async (roomConfig) => {
   const roomId = firebase.auth().currentUser.displayName;
   const authToken = await firebase.auth().currentUser.getIdToken();
-  // global.roomServiceSocket.emit('create_room', {
-  //   roomId,
-  //   roomConfig,
-  //   authToken
-  // })
+  GLOBAL.roomServiceSocket.emit('create_room', {
+    roomId,
+    roomConfig,
+    authToken
+  });
   console.log('sending create_room to socket');
 }
 
@@ -79,7 +79,8 @@ const CreateRoomScreen = ({ navigation }) => {
   );
 
   const navigateToRoom = () => {
-    global.roomName = firebase.auth().currentUser.displayName;
+    console.log('navigating to room');
+    GLOBAL.roomName = firebase.auth().currentUser.displayName;
     navigation.navigate('RoomDoor');
   }
 
@@ -87,15 +88,14 @@ const CreateRoomScreen = ({ navigation }) => {
   // room service we should navigate to the room page
   useFocusEffect(
     useCallback(() => {
-
-      // global.roomServiceSocket.on('room_already_created', navigateToRoom)
-      // global.roomServiceSocket.on('create_success', navigateToRoom)
-      console.log('navigating to room door');
+      GLOBAL.roomServiceSocket.on('room_already_created', () => console.log('got room_already_created'));
+      GLOBAL.roomServiceSocket.on('create_success', () => console.log('got create_success'));
+      console.log('registered listeners');
 
       return () => {
         console.log('cleaning up listeners');
-        // global.roomServiceSocket.off('room_already_created', navigateToRoom);
-        // global.roomServiceSocket.off('create_success', navigateToRoom);
+        GLOBAL.roomServiceSocket.off('room_already_created', navigateToRoom);
+        GLOBAL.roomServiceSocket.off('create_success', navigateToRoom);
       }
     }, [])
   );

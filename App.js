@@ -11,12 +11,8 @@ import RoomDoor from './components/RoomDoor'
 import HomeScreen from './components/HomeScreen'
 import RoomScreen from './components/RoomScreen'
 import SocketDemoPage from './components/SocketDemoPage';
-<<<<<<< HEAD
 import KickedScreen from './components/KickedScreen'
 import CreateRoomScreen from './components/CreateRoom/Screen';
-=======
-import CreateRoomScreen from './components/CreateRoom/CreateRoomScreen';
->>>>>>> 1752186352f27b51f5b95058d404df890f33f5f7
 
 import { styles } from './styles/styles'
 
@@ -48,7 +44,6 @@ function App() {
       >
         
         {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
-        <Stack.Screen name="CreateRoomScreen" component={CreateRoomScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="CreateRoomScreen" component={CreateRoomScreen} />
         <Stack.Screen name="RoomScreen" component={RoomScreen} />
