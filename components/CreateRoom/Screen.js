@@ -32,7 +32,7 @@ const defaultDeck = [
 
 const defaultAllowAbstain = true;
 
-const CreateRoomScreen = () => {
+const CreateRoomScreen = ({ navigation }) => {
   const [deck, setDeck] = useState(defaultDeck);
   const [allowAbstain, setAllowAbstain] = useState(defaultAllowAbstain);
 
@@ -69,7 +69,7 @@ const CreateRoomScreen = () => {
 
   return (
     <>
-      <CreateRoomHeader />
+      <CreateRoomHeader navigation={navigation}/>
       <View style={styles.container}>
         <CreateRoomCardList deck={deck} deleteCard={deleteCard} openEditModal={openEditModal} />
         <CreateRoomAddCardButton onPress={() => setModalIsVisible(true)} />
