@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import CreateRoomCardOptions from './CardOptions';
 
-const CreateRoomCard = ({ value, tag, onPressDelete }) => {
+const CreateRoomCard = ({ value, tag, onPressDelete, onPressEdit }) => {
   return (
     <View style={styles.container}>
       <View style={styles.properties}>
@@ -18,7 +18,7 @@ const CreateRoomCard = ({ value, tag, onPressDelete }) => {
         </View>
       </View>
       <CreateRoomCardOptions
-        onPressEdit={() => console.log('edit')}
+        onPressEdit={onPressEdit}
         onPressDelete={onPressDelete}
       />
     </View>

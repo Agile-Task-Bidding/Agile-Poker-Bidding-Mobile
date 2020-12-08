@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
-const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
-  const [value, setValue] = useState('');
-  const [tag, setTag] = useState('');
+const CreateRoomCreateCardModal = ({ visible, modalIntent, onSubmit, setVisible, initialValue, initialTag }) => {
+  const [value, setValue] = useState((modalIntent === 'edit') ? initialValue : '');
+  const [tag, setTag] = useState((modalIntent === 'edit') ? initialTag : '');
 
-  const onPressCreate = () => {
+  const formattedIntent = (modalIntent === 'edit') ? 'Edit' : 'Create';
+
+  const onPressSubmit = () => {
     // Add the card to the deck
-    addCard(value, tag);
+    onSubmit(value, tag);
 
     // Reset the state variables
     setValue('');
@@ -32,7 +34,7 @@ const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
     >
       <View style={styles.modal}>
         <View style={styles.container}>
-          <Text style={styles.title}>Create Card</Text>
+          <Text style={styles.title}>{formattedIntent} Card</Text>
           <View style={styles.form}>
             <Text style={{ fontFamily: baseFontFamily }}>Value</Text>
             <TextInput
@@ -62,8 +64,8 @@ const CreateRoomCreateCardModal = ({ visible, addCard, setVisible }) => {
               onPress={onPressCancel}
             />
             <Button
-              title='Create'
-              onPress={onPressCreate}
+              title={formattedIntent}
+              onPress={onPressSubmit}
             />
           </View>
         </View>
