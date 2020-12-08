@@ -24,7 +24,6 @@ const getRoomConfig = async () => {
     });
   } catch (e) {
     Alert.alert('Error', e.message);
-    console.error(e);
   }
 
   return response.data.roomConfig;
@@ -43,7 +42,6 @@ const putRoomConfig = async (deck, allowAbstain) => {
       headers: { Authorization: `Bearer ${token}` }
     });
   } catch (e) {
-    console.error(e.response.data);
   }
 }
 
@@ -51,11 +49,10 @@ const startRoom = async (roomConfig) => {
   const roomId = firebase.auth().currentUser.displayName;
   const authToken = await firebase.auth().currentUser.getIdToken();
   GLOBAL.roomServiceSocket.emit('create_room', {
-    roomId,
+    roomID: roomId,
     roomConfig,
     authToken
   });
-  console.log('sending create_room to socket');
 }
 
 const CreateRoomScreen = ({ navigation }) => {
@@ -79,7 +76,6 @@ const CreateRoomScreen = ({ navigation }) => {
   );
 
   const navigateToRoom = () => {
-    console.log('navigating to room');
     GLOBAL.roomName = firebase.auth().currentUser.displayName;
     navigation.navigate('RoomDoor');
   }
@@ -88,12 +84,10 @@ const CreateRoomScreen = ({ navigation }) => {
   // room service we should navigate to the room page
   useFocusEffect(
     useCallback(() => {
-      GLOBAL.roomServiceSocket.on('room_already_created', () => console.log('got room_already_created'));
-      GLOBAL.roomServiceSocket.on('create_success', () => console.log('got create_success'));
-      console.log('registered listeners');
+      GLOBAL.roomServiceSocket.on('room_already_created', navigateToRoom);
+      GLOBAL.roomServiceSocket.on('create_success', navigateToRoom);
 
       return () => {
-        console.log('cleaning up listeners');
         GLOBAL.roomServiceSocket.off('room_already_created', navigateToRoom);
         GLOBAL.roomServiceSocket.off('create_success', navigateToRoom);
       }
@@ -133,19 +127,16 @@ const CreateRoomScreen = ({ navigation }) => {
   };
 
   const onStart = () => {
-    console.log('putting room config');
     putRoomConfig(deck, allowAbstain);
-    console.log('starting the room');
     startRoom({ deck, allowAbstain });
-    console.log('room start sent');
     // The room service should respond with a create_success event, 
     // navigating us to our room door
   };
 
   return (
     <>
-      <CreateRoomHeader 
-        navigation={navigation} 
+      <CreateRoomHeader
+        navigation={navigation}
         onStartPress={onStart}
       />
       <View style={styles.container}>
