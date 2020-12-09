@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import * as GLOBAL from '../../state/global';
+import UserRow from './UserRow';
 
 import { styles } from '../../styles/styles';
 
@@ -43,16 +44,17 @@ class UsersList extends Component {
     generateUsers = () => {
         const userElements = [];
         for (const [key, value] of Object.entries(this.props.roomState.connectedUsersByID)) {
-            console.log(userElements);
+            const hasVoted = this.props.roomState.voteByUserID[key] !== null;
+            const isHost = (key === this.props.roomState.hostSocketID);
             userElements.push(
-                <View style={styles.usersView} key={key}>
-                    <Text style={styles.usersTextStyle}>
-                        {value.nickname}
-                    </Text>
-                    {this.hostKickButton(value)}
-                </View>
+                <UserRow
+                    user={value}
+                    hasVoted={hasVoted}
+                    key={key}
+                    isHost={isHost}
+                />
             );
-        }
+        };
         return userElements;
     }
 
