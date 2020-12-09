@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     pickingBody: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#ededed',
+        backgroundColor: 'lightgray',
     },
     homeBody: {
         flex: 1,
