@@ -23,7 +23,7 @@ import { firebase } from '@react-native-firebase/auth';
 import { firebaseConfig } from './config/firebaseConfig';
 import config from './config/config'
 
-// firebase.initializeApp(firebaseConfig);
+//  firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
