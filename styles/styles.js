@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     pickingBody: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: 'linear-gradient(90deg, rgba(173,213,255,1) 0%, rgba(0,82,255,1) 100%)',
+        backgroundColor: '#ededed',
     },
     homeBody: {
         flex: 1,
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     },
     cardBody: {
         flex: 1,
-        backgroundColor: 'linear-gradient(90deg, rgba(173,213,255,1) 0%, rgba(0,82,255,1) 100%)',
+        backgroundColor: '#ededed',
         flexWrap: 'wrap',
         flexDirection: 'row',
     },
@@ -195,26 +195,28 @@ export const styles = StyleSheet.create({
         fontFamily: baseFontFamily,
     },
     cardView: {
-        borderRadius: 10,
-        borderWidth: 5,
-        borderColor: baseColor,
         margin: 10,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        height: 250,
         flexBasis: '44.9%',
+        height: 250,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        elevation: 3,
+        margin: 5
     },
     cardViewSelected: {
-        borderRadius: 10,
-        borderWidth: 5,
-        borderColor: '#6995ff',
         margin: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgb(60, 120, 230)',
+        backgroundColor: '#fff',
+        flexBasis: '44.9%',
         height: 250,
-        flexBasis: '44%',
+        backgroundColor: 'rgb(60, 120, 230)',
+        borderRadius: 20,
+        elevation: 3,
+        margin: 5
     },
     usersView: {
         height: 60,
