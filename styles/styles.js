@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
     cardBody: {
         flex: 1,
         backgroundColor: '#ededed',
+        justifyContent: 'center',
         flexWrap: 'wrap',
         flexDirection: 'row',
     },
@@ -199,7 +200,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        flexBasis: '44.9%',
+        flexBasis: '43%',
         height: 250,
         backgroundColor: 'white',
         borderRadius: 20,
